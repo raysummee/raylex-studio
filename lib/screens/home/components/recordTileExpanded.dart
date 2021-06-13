@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:raylex_studio/screens/home/components/customSliderThumbShape.dart';
 import 'package:raylex_studio/screens/home/components/customSliderTrackShape.dart';
 
@@ -16,7 +17,8 @@ class RecordTileExpanded extends StatelessWidget {
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
-        margin: EdgeInsets.only(bottom: 2),
+        margin: EdgeInsets.only(bottom: 2,),
+        padding: EdgeInsets.only(top: 25),
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(255, 253, 253, 253),
         child: Column(
@@ -26,7 +28,7 @@ class RecordTileExpanded extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                "New Recording 1",
+                recordLabel,
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w500
@@ -39,7 +41,7 @@ class RecordTileExpanded extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                "13-May-2021",
+                DateFormat('dd-MMM-yyyy').format(dateTime),
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

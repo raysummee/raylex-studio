@@ -2,22 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:raylex_studio/screens/home/components/recordTile.dart';
 import 'package:raylex_studio/screens/home/components/recordTileExpanded.dart';
 
-class ListRecordTile extends StatelessWidget {
+class ListRecordTile extends StatefulWidget {
   const ListRecordTile({ Key? key }) : super(key: key);
 
+  @override
+  _ListRecordTileState createState() => _ListRecordTileState();
+}
+
+class _ListRecordTileState extends State<ListRecordTile> {
+  int expandedRecording = -1;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: 2),
-      itemBuilder: (context, index) => index==0?
-        RecordTileExpanded(
+      itemBuilder: (context, index) => AnimatedCrossFade(
+        crossFadeState: index==expandedRecording?
+          CrossFadeState.showFirst:
+          CrossFadeState.showSecond,
+        duration: Duration(milliseconds: 300),
+        firstChild: RecordTileExpanded(
           recordLabel: "New Record ${index+1}",
           dateTime: DateTime.now(),
-        ):
-        RecordTile(
-          recordLabel: 'New Record ${index+1}',
-          dateTime: DateTime.now(),
         ),
+        secondChild:  InkWell(
+          onTap: (){
+            setState(() {
+              expandedRecording = index;
+            });
+          },
+          child: RecordTile(
+            recordLabel: 'New Record ${index+1}',
+            dateTime: DateTime.now(),
+          ),
+        ),
+      ),
       itemCount: 10,
     );
   }
