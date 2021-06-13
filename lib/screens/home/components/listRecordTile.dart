@@ -9,7 +9,15 @@ class ListRecordTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: 2),
-      itemBuilder: (context, index) => index==0?RecordTileExpanded():RecordTile(),
+      itemBuilder: (context, index) => index==0?
+        RecordTileExpanded(
+          recordLabel: "New Record ${index+1}",
+          dateTime: DateTime.now(),
+        ):
+        RecordTile(
+          recordLabel: 'New Record ${index+1}',
+          dateTime: DateTime.now(),
+        ),
       itemCount: 10,
     );
   }

@@ -4,15 +4,19 @@ import 'package:raylex_studio/screens/home/components/customSliderThumbShape.dar
 import 'package:raylex_studio/screens/home/components/customSliderTrackShape.dart';
 
 class RecordTileExpanded extends StatelessWidget {
-  const RecordTileExpanded({ Key? key }) : super(key: key);
+  final String recordLabel;
+  final DateTime dateTime;
+  const RecordTileExpanded({ 
+    required this.recordLabel, 
+    required this.dateTime, 
+    Key? key 
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
-        // height: 174,
         margin: EdgeInsets.only(bottom: 2),
-        // padding: EdgeInsets.symmetric(horizontal: 30),
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(255, 253, 253, 253),
         child: Column(

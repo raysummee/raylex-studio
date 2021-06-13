@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class RecordTile extends StatelessWidget {
-  const RecordTile({ Key? key }) : super(key: key);
+  final String recordLabel;
+  final DateTime dateTime;
+  const RecordTile({ 
+    required this.recordLabel, 
+    required this.dateTime, 
+    Key? key 
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +24,7 @@ class RecordTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "New Recording 1",
+              recordLabel,
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500
@@ -27,7 +34,7 @@ class RecordTile extends StatelessWidget {
               height: 10,
             ),
             Text(
-              "13-May-2021",
+              DateFormat('dd-MMM-yyyy').format(dateTime),
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
