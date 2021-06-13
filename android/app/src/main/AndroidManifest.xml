@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.raysummee.raylex.studio.raylex_studio">
+    package="com.raysummee.raylex.studio">
    <application
-        android:label="raylex_studio"
+        android:label="Raylex Studio"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

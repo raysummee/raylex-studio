@@ -1,4 +1,4 @@
-package com.raysummee.raylex.studio.raylex_studio
+package com.raysummee.raylex.studio
 
 import io.flutter.embedding.android.FlutterActivity
 
