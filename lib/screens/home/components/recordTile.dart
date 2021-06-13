@@ -8,6 +8,7 @@ class RecordTile extends StatelessWidget {
     return UnconstrainedBox(
       child: Container(
         height: 95,
+        margin: EdgeInsets.only(top: 2),
         padding: EdgeInsets.symmetric(horizontal: 30),
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(255, 253, 253, 253),
