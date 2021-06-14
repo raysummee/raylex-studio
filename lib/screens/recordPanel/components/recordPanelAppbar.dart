@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/screens/recordPanel/components/recordPanelSeekbar.dart';
 
 class RecordPanelAppbar extends StatelessWidget {
   final String title;
@@ -7,53 +8,63 @@ class RecordPanelAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            offset: Offset(0,3),
-            color: Colors.black.withOpacity(0.02)
-          )
-        ]
-      ),
-      width: double.infinity,
-      child: SafeArea(
-        bottom: false,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(28, 28, 28, 28),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w500
-                ),
+    return Stack(
+      children: [
+        Container(
+          alignment: Alignment.topCenter,
+          height: 105+kToolbarHeight,
+          width: double.infinity,
+          child: UnconstrainedBox(
+            child: Container(
+               decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 10,
+                    offset: Offset(0,3),
+                    color: Colors.black.withOpacity(0.02)
+                  )
+                ]
               ),
-              ElevatedButton(
-                child: Text(
-                  "End", 
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              height: 80+kToolbarHeight,
+              padding: const EdgeInsets.fromLTRB(28, kToolbarHeight/2, 28, 0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w500
+                    ),
                   ),
-                ), 
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(78, 41),
-                  primary: Color.fromARGB(255, 255, 80, 80),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14)
-                  ),
-                ),
-                onPressed: (){}
-              )
-            ],
+                  ElevatedButton(
+                    child: Text(
+                      "End", 
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ), 
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(78, 41),
+                      primary: Color.fromARGB(255, 255, 80, 80),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14)
+                      ),
+                    ),
+                    onPressed: (){}
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+        RecordPanelSeekbar()
+      ],
     );
   }
 }
