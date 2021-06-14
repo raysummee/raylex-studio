@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/logic/context/appContext.dart';
 import 'package:raylex_studio/screens/home/home.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Raylex Studio',
+      navigatorKey: navigatorState,
       theme: ThemeData(
         accentColor: Colors.red,
         primaryColor: Colors.white
