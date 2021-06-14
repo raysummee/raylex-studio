@@ -21,7 +21,8 @@ class GenericAppbar extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Container(
-          padding: Navigator.of(context).canPop()?EdgeInsets.fromLTRB(16, 16, 8, 16):EdgeInsets.fromLTRB(28, 28, 8, 28),
+          height: 60+MediaQuery.of(context).viewInsets.top,
+          padding: EdgeInsets.fromLTRB(16, 0, 8, 0),
           child: Row(
             children: [
               Navigator.of(context).canPop()? BackButton():Container(),

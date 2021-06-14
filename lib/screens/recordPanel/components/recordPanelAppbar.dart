@@ -12,7 +12,6 @@ class RecordPanelAppbar extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.topCenter,
-          height: 105+kToolbarHeight,
           width: double.infinity,
           child: UnconstrainedBox(
             child: Container(
@@ -26,10 +25,10 @@ class RecordPanelAppbar extends StatelessWidget {
                   )
                 ]
               ),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
-              height: 80+kToolbarHeight,
-              padding: const EdgeInsets.fromLTRB(28, kToolbarHeight/1.9, 28, 0),
+              height: 60+MediaQuery.of(context).viewPadding.top,
+              padding: EdgeInsets.fromLTRB(28, MediaQuery.of(context).viewPadding.top, 28, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
