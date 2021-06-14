@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/screens/recordPanel/components/recordPanelAppbar.dart';
+import 'package:raylex_studio/screens/recordPanel/components/recordTrackTile.dart';
 
 class RecordPanel extends StatefulWidget {
   const RecordPanel({ Key? key }) : super(key: key);
@@ -23,6 +25,16 @@ class _RecordPanelState extends State<RecordPanel> {
                   "assets/images/cover.jpg",
                   height: 300,
                   fit: BoxFit.fitHeight,
+                ),
+                SizedBox(height: 16,),
+                RecordTrackTile(
+                  trackName: "Track 1",
+                  type: RecordTileType.Record,
+                ),
+                SizedBox(height: 8,),
+                RecordTrackTile(
+                  trackName: "Karoke Track",
+                  type: RecordTileType.Display,
                 ),
               ],
             ),
