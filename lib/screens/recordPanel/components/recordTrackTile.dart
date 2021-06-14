@@ -27,9 +27,9 @@ class RecordTrackTile extends StatelessWidget {
           case RecordTileType.None:
             return null;
           case RecordTileType.Display:
-            return Image.asset("assets/icon/being display.png");
+            return Image.asset("assets/icon/being display.png", height: 20,);
           case RecordTileType.Record:
-            return Image.asset("assets/icon/being record.png");
+            return Image.asset("assets/icon/being record.png", height: 20,);
         }
       }()) ,
     );
