@@ -29,7 +29,7 @@ class RecordPanelAppbar extends StatelessWidget {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               height: 80+kToolbarHeight,
-              padding: const EdgeInsets.fromLTRB(28, kToolbarHeight/2, 28, 0),
+              padding: const EdgeInsets.fromLTRB(28, kToolbarHeight/1.9, 28, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
