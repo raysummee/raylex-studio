@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/components/dialog/twoOptionButtonDialog.dart';
+import 'package:raylex_studio/logic/context/appContext.dart';
 
 class RecordButton extends StatelessWidget {
   const RecordButton({ Key? key }) : super(key: key);
@@ -14,7 +15,10 @@ class RecordButton extends StatelessWidget {
             topLabel: "IMPORT NEW",
             topFunc: (){},
             bottomLabel: "IMPORT ADDED",
-            bottomFunc: (){},
+            bottomFunc: (){
+              Navigator.of(appContext!).pop();
+              Navigator.of(context).pushNamed("/added");
+            },
           );
         },
         child: Container(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/context/appContext.dart';
+import 'package:raylex_studio/routes/routeGenerator.dart';
+import 'package:raylex_studio/screens/addedSongs/addedSongs.dart';
 import 'package:raylex_studio/screens/home/home.dart';
 
 void main() {
@@ -16,7 +18,8 @@ class App extends StatelessWidget {
         accentColor: Colors.red,
         primaryColor: Colors.white
       ),
-      home: Home(),
+      initialRoute: "/",
+      onGenerateRoute: RouteGenerator.generateRoute
     );
   }
 }
