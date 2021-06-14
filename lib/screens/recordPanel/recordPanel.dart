@@ -17,16 +17,22 @@ class _RecordPanelState extends State<RecordPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        child: RecordPanelAppbar(title: "Your Song"), 
+        preferredSize: Size.fromHeight(85)
+      ),
       body: Stack(
         children: [ 
           Transform.translate(
-            offset: Offset(0, 80+kToolbarHeight),
+            offset: Offset(0, kToolbarHeight),
             child: Column(
               children: [
                 Image.asset(
                   "assets/images/cover.jpg",
-                  height: 300,
-                  fit: BoxFit.fitHeight,
+                  width: double.infinity,
+                  height: (MediaQuery.of(context).size.height-kToolbarHeight-kBottomNavigationBarHeight)*0.4,
+                  fit: BoxFit.cover,
                 ),
                 SizedBox(height: 16,),
                 RecordTrackTile(
@@ -42,7 +48,6 @@ class _RecordPanelState extends State<RecordPanel> {
             ),
           ),
           AddNewTrackButton(),
-          RecordPanelAppbar(title: "Your Song")
         ],
       ),
     );
