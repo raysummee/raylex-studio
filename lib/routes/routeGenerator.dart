@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/screens/addedSongs/addedSongs.dart';
 import 'package:raylex_studio/screens/home/home.dart';
+import 'package:raylex_studio/screens/recordPanel/recordPanel.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +13,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Home());
       case '/added':
         return MaterialPageRoute(builder: (_) => AddedSongs());
+      case '/recordPanel':
+        return MaterialPageRoute(builder: (_) => RecordPanel());
       default:
         return _errorRoute();
     }
