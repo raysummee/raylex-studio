@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GenericAppbar extends StatelessWidget {
-  const GenericAppbar({ Key? key }) : super(key: key);
+  final String title;
+  const GenericAppbar({ Key? key, required this.title }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class GenericAppbar extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.fromLTRB(28, 28, 8, 28),
           child: Text(
-            "Your Recordings",
+            title,
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w500
