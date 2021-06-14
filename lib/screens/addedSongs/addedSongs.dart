@@ -13,8 +13,10 @@ class AddedSongs extends StatelessWidget {
           GenericAppbar(title: "Added Karoke"),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.only(top: 2),
+              padding: EdgeInsets.only(top: 2, bottom: kBottomNavigationBarHeight),
+              itemCount: 10,
               itemBuilder: (context, index) => SongTile(
+                onTap: (){},
                 recordLabel: "Song ${index+1}", 
                 dateTime: DateTime.now()
               )

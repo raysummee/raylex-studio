@@ -24,16 +24,14 @@ class _ListRecordTileState extends State<ListRecordTile> {
           recordLabel: "New Record ${index+1}",
           dateTime: DateTime.now(),
         ),
-        secondChild:  InkWell(
+        secondChild:  SongTile(
+          recordLabel: 'New Record ${index+1}',
+          dateTime: DateTime.now(),
           onTap: (){
-            setState(() {
+             setState(() {
               expandedRecording = index;
             });
           },
-          child: SongTile(
-            recordLabel: 'New Record ${index+1}',
-            dateTime: DateTime.now(),
-          ),
         ),
       ),
       itemCount: 10,
