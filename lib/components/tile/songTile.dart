@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RecordTile extends StatelessWidget {
+class SongTile extends StatelessWidget {
   final String recordLabel;
   final DateTime dateTime;
-  const RecordTile({ 
+  const SongTile({ 
     required this.recordLabel, 
     required this.dateTime, 
     Key? key 

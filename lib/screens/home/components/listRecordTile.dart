@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/screens/home/components/recordTile.dart';
-import 'package:raylex_studio/screens/home/components/recordTileExpanded.dart';
+import 'package:raylex_studio/components/tile/songTile.dart';
+import 'package:raylex_studio/components/tile/songTileExpanded.dart';
 
 class ListRecordTile extends StatefulWidget {
   const ListRecordTile({ Key? key }) : super(key: key);
@@ -20,7 +20,7 @@ class _ListRecordTileState extends State<ListRecordTile> {
           CrossFadeState.showFirst:
           CrossFadeState.showSecond,
         duration: Duration(milliseconds: 300),
-        firstChild: RecordTileExpanded(
+        firstChild: SongTileExpanded(
           recordLabel: "New Record ${index+1}",
           dateTime: DateTime.now(),
         ),
@@ -30,7 +30,7 @@ class _ListRecordTileState extends State<ListRecordTile> {
               expandedRecording = index;
             });
           },
-          child: RecordTile(
+          child: SongTile(
             recordLabel: 'New Record ${index+1}',
             dateTime: DateTime.now(),
           ),

@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:raylex_studio/screens/home/components/customSliderThumbShape.dart';
 import 'package:raylex_studio/screens/home/components/customSliderTrackShape.dart';
 
-class RecordTileExpanded extends StatelessWidget {
+class SongTileExpanded extends StatelessWidget {
   final String recordLabel;
   final DateTime dateTime;
-  const RecordTileExpanded({ 
+  const SongTileExpanded({ 
     required this.recordLabel, 
     required this.dateTime, 
     Key? key 
