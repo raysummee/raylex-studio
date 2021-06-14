@@ -17,7 +17,7 @@ class RecordBottomsheet extends StatelessWidget {
           )
         ]
       ),
-      height: 200,
+      height: (MediaQuery.of(context).size.height-kToolbarHeight-kBottomNavigationBarHeight)*0.26,
       width: double.infinity,
       child: RecordButton()
     );
