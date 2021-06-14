@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
+import 'package:raylex_studio/screens/recordPanel/components/addNewTrackButton.dart';
 import 'package:raylex_studio/screens/recordPanel/components/recordPanelAppbar.dart';
 import 'package:raylex_studio/screens/recordPanel/components/recordTrackTile.dart';
 
@@ -39,6 +41,7 @@ class _RecordPanelState extends State<RecordPanel> {
               ],
             ),
           ),
+          AddNewTrackButton(),
           RecordPanelAppbar(title: "Your Song")
         ],
       ),
