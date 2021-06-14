@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/components/dialog/twoOptionButtonDialog.dart';
 
 class RecordButton extends StatelessWidget {
   const RecordButton({ Key? key }) : super(key: key);
@@ -8,7 +9,9 @@ class RecordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: CupertinoButton(
-        onPressed: (){},
+        onPressed: (){
+          TwoOptionButtonDialog.show();
+        },
         child: Container(
           height: 69,
           width: 69,
