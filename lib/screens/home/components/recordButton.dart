@@ -10,7 +10,12 @@ class RecordButton extends StatelessWidget {
     return UnconstrainedBox(
       child: CupertinoButton(
         onPressed: (){
-          TwoOptionButtonDialog.show();
+          TwoOptionButtonDialog.show(
+            topLabel: "IMPORT NEW",
+            topFunc: (){},
+            bottomLabel: "IMPORT ADDED",
+            bottomFunc: (){},
+          );
         },
         child: Container(
           height: 69,

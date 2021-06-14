@@ -3,12 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/context/appContext.dart';
 
 class TwoOptionButtonDialog extends StatelessWidget {
-  const TwoOptionButtonDialog({ Key? key }) : super(key: key);
+  final String topLabel;
+  final String bottomLabel;
+  final VoidCallback topFunc;
+  final VoidCallback bottomFunc;
 
-  static Future<void> show()async {
+  const TwoOptionButtonDialog({ 
+    Key? key, 
+    required this.topLabel, 
+    required this.topFunc, 
+    required this.bottomLabel, 
+    required this.bottomFunc 
+  }) : super(key: key);
+
+  static Future<void> show({
+    required String topLabel,
+    required String bottomLabel,
+    required VoidCallback topFunc,
+    required VoidCallback bottomFunc
+  })async {
     showDialog(
       context: appContext!, 
-      builder: (context,) => TwoOptionButtonDialog(),
+      builder: (context,) => TwoOptionButtonDialog(
+        topLabel: topLabel, 
+        topFunc: topFunc, 
+        bottomLabel: bottomLabel, 
+        bottomFunc: bottomFunc
+      )
     );
   }
 
@@ -22,13 +43,13 @@ class TwoOptionButtonDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CupertinoButton(
-            onPressed: (){},
+            onPressed: topFunc,
             child: Container(
               width: double.infinity,
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 16, bottom: 8),
               child: Text(
-                "IMPORT NEW",
+                topLabel,
                 style: TextStyle(
                   fontSize: 17,
                   color: Colors.black,
@@ -43,13 +64,13 @@ class TwoOptionButtonDialog extends StatelessWidget {
             endIndent: 16,
           ),
           CupertinoButton(
-            onPressed: (){},
+            onPressed: bottomFunc,
             child: Container(
               width: double.infinity,
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 8, bottom:  16),
               child: Text(
-                'IMPORT ADDED',
+                bottomLabel,
                 style: TextStyle(
                   fontSize: 17,
                   color: Colors.black,
