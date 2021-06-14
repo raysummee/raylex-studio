@@ -21,13 +21,18 @@ class GenericAppbar extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: Container(
-          padding: EdgeInsets.fromLTRB(28, 28, 8, 28),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w500
-            ),
+          padding: Navigator.of(context).canPop()?EdgeInsets.fromLTRB(16, 16, 8, 16):EdgeInsets.fromLTRB(28, 28, 8, 28),
+          child: Row(
+            children: [
+              Navigator.of(context).canPop()? BackButton():Container(),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ],
           ),
         ),
       ),
