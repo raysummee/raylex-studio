@@ -9,8 +9,8 @@ class AddNewTrackButton extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomRight,
       child: Padding(
-        padding: const EdgeInsets.only(
-          bottom: kBottomNavigationBarHeight+8, 
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom+8, 
           right: 28
         ),
         child: CupertinoButton(
