@@ -16,7 +16,9 @@ class AddedSongs extends StatelessWidget {
               padding: EdgeInsets.only(top: 2, bottom: kBottomNavigationBarHeight),
               itemCount: 10,
               itemBuilder: (context, index) => SongTile(
-                onTap: (){},
+                onTap: (){
+                  Navigator.of(context).pushNamed("/recordPanel");
+                },
                 recordLabel: "Song ${index+1}", 
                 dateTime: DateTime.now()
               )
