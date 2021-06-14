@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomSliderThumbShape extends SliderComponentShape {
   const CustomSliderThumbShape({
     this.enabledThumbRadius = 10.0,
+    this.showThumb: true,
     required this.disabledThumbRadius,
   });
 
   final double enabledThumbRadius;
+  final bool showThumb;
 
   final double disabledThumbRadius;
   double get _disabledThumbRadius =>  disabledThumbRadius;
@@ -31,6 +33,7 @@ class CustomSliderThumbShape extends SliderComponentShape {
     required double textScaleFactor, 
     required Size sizeWithOverflow}
   ) {
+    if(!showThumb) return;
     final Canvas canvas = context.canvas;
     final Tween<double> radiusTween = Tween<double>(
       begin: _disabledThumbRadius,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomSliderTrackShape extends RoundedRectSliderTrackShape {
+  final bool dense;
+  CustomSliderTrackShape({this.dense:false});
   Rect getPreferredRect({
     required RenderBox parentBox,
     Offset offset = Offset.zero,
@@ -10,7 +12,7 @@ class CustomSliderTrackShape extends RoundedRectSliderTrackShape {
   }) {
     final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx;
-    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double trackTop = dense?offset.dy:offset.dy + (parentBox.size.height - trackHeight) / 2;
     final double trackWidth = parentBox.size.width;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
