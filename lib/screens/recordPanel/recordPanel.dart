@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderOverlayShape.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
 import 'package:raylex_studio/screens/recordPanel/components/recordPanelAppbar.dart';
 
 class RecordPanel extends StatefulWidget {
@@ -16,35 +13,21 @@ class _RecordPanelState extends State<RecordPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          RecordPanelAppbar(title: "Your Song"),
-           SliderTheme(
-            data: SliderThemeData(
-              activeTrackColor: Color.fromARGB(255, 255, 80, 80),
-              thumbColor: Colors.white,
-              inactiveTrackColor: Color.fromARGB(255, 237, 237, 237),
-              overlayColor: Color.fromARGB(255, 255, 80, 80),
-              overlayShape: CustomSliderOverlayShape(),
-              thumbShape: CustomSliderThumbShape(
-                disabledThumbRadius: 0,
-                showThumb: false
-              ),
-              disabledThumbColor: Colors.black,
-              
-
-              trackShape: CustomSliderTrackShape(dense: true)
-            ),
-            child: Slider(
-              value: sliderValue, 
-
-              onChanged: (val){
-                setState(() {
-                  sliderValue = val;
-                });
-              }
+      body: Stack(
+        children: [ 
+          Transform.translate(
+            offset: Offset(0, 80+kToolbarHeight),
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/cover.jpg",
+                  height: 300,
+                  fit: BoxFit.fitHeight,
+                ),
+              ],
             ),
           ),
+          RecordPanelAppbar(title: "Your Song")
         ],
       ),
     );
