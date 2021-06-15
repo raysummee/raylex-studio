@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:raylex_studio/logic/context/appContext.dart';
+import 'package:raylex_studio/logic/db/db.dart';
 import 'package:raylex_studio/routes/routeGenerator.dart';
 
-void main() {
+void main() async{
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.white, // Color for Android
-    statusBarBrightness: Brightness.light // Dark == white status bar -- for IOS.
+    statusBarBrightness: Brightness.light //for IOS.
   ));
+  await Db().init();
   runApp(App());
 }
 
