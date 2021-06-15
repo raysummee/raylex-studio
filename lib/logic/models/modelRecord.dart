@@ -7,7 +7,7 @@ class ModelRecord extends HiveObject{
   @HiveField(0)
   String name;
   @HiveField(1)
-  HiveList<ModelTrack> tracks;
+  HiveList<ModelTrack>? tracks;
   @HiveField(2)
   DateTime onCreated;
   @HiveField(3)
@@ -19,7 +19,6 @@ class ModelRecord extends HiveObject{
 
   ModelRecord({
     required this.name,
-    required this.tracks,
     required this.previewTrack,
     required this.exported,
     required this.onCreated,
