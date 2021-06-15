@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -8,6 +9,7 @@ import 'package:raylex_studio/logic/models/modelTrack.dart';
 import 'package:raylex_studio/screens/recordPanel/components/addNewTrackButton.dart';
 import 'package:raylex_studio/screens/recordPanel/components/recordPanelAppbar.dart';
 import 'package:raylex_studio/screens/recordPanel/components/recordTrackTile.dart';
+import 'package:video_player/video_player.dart';
 
 class RecordPanel extends StatefulWidget {
   final ModelRecord? record;
@@ -20,6 +22,9 @@ class RecordPanel extends StatefulWidget {
 class _RecordPanelState extends State<RecordPanel> {
   double sliderValue = 0.5;
   late ModelRecord record;
+  late var chewieController;
+  final videoPlayerController = VideoPlayerController.asset('assets/images/butterfly.mp4');
+
   @override
   void initState() {
     if(widget.record==null){
@@ -33,6 +38,16 @@ class _RecordPanelState extends State<RecordPanel> {
     }else{
       record = widget.record!;
     }
+    videoPlayerController.initialize().then((value) => videoPlayerController.play());
+
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      autoPlay: false,
+      looping: false,
+      allowFullScreen: false,
+      showControls: false,
+      aspectRatio: 16/9
+    );
     super.initState();
   }
   @override
@@ -51,14 +66,10 @@ class _RecordPanelState extends State<RecordPanel> {
               height: MediaQuery.of(context).size.height-kToolbarHeight,
               child: Column(
                 children: [
-                  // Container(
-                  //   height: (MediaQuery.of(context).size.height-kToolbarHeight-kBottomNavigationBarHeight)*0.4,
-                  //   width: double.infinity,
-                  //   child: Image.asset(
-                  //     "assets/images/cover.jpg",
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
+                  AspectRatio(
+                    aspectRatio: 16/9,
+                    child: Chewie(controller: chewieController)
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: record.tracks==null?0:record.tracks!.length,
