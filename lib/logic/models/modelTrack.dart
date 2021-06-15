@@ -8,10 +8,10 @@ class ModelTrack extends HiveObject{
   @HiveField(1)
   int path;
   @HiveField(2)
-  Duration duration;
+  double milis;
   ModelTrack({
     required this.name,
     required this.path,
-    required this.duration
+    required this.milis
   });
 }

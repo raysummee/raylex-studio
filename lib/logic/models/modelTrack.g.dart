@@ -19,7 +19,7 @@ class ModelTrackAdapter extends TypeAdapter<ModelTrack> {
     return ModelTrack(
       name: fields[0] as String,
       path: fields[1] as int,
-      duration: fields[2] as Duration,
+      milis: fields[2] as double,
     );
   }
 
@@ -32,7 +32,7 @@ class ModelTrackAdapter extends TypeAdapter<ModelTrack> {
       ..writeByte(1)
       ..write(obj.path)
       ..writeByte(2)
-      ..write(obj.duration);
+      ..write(obj.milis);
   }
 
   @override
