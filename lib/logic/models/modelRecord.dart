@@ -3,23 +3,24 @@ import 'package:raylex_studio/logic/models/modelTrack.dart';
 part 'modelRecord.g.dart';
 
 @HiveType(typeId: 1)
-class ModelRecord extends HiveObject{
+class ModelRecord{
   @HiveField(0)
   String name;
   @HiveField(1)
-  HiveList<ModelTrack>? tracks;
+  List<ModelTrack>? tracks;
   @HiveField(2)
   DateTime onCreated;
   @HiveField(3)
   DateTime onUpdated;
   @HiveField(4)
-  ModelTrack previewTrack;
+  ModelTrack? previewTrack;
   @HiveField(5)
   bool exported;
 
   ModelRecord({
     required this.name,
-    required this.previewTrack,
+    this.previewTrack,
+    this.tracks,
     required this.exported,
     required this.onCreated,
     required this.onUpdated

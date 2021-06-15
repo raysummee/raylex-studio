@@ -38,16 +38,14 @@ class ModelRecordHelper{
     ModelRecord record = ModelRecord(
       name: name, 
       previewTrack: previewTrack, 
+      tracks: tracks,
       exported: exported, 
       onCreated: DateTime.now(), 
       onUpdated: DateTime.now()
     );
     await box().add(record);
-    if(tracks == null) return;
-    await ModelTrackHelper().addAll(tracks);
   }
 
   Future<void> update(ModelRecord record) async{
-    await record.save();
   }
 }

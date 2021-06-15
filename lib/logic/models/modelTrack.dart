@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'modelTrack.g.dart';
 
 @HiveType(typeId: 0)
-class ModelTrack extends HiveObject{
+class ModelTrack{
   @HiveField(0)
   String name;
   @HiveField(1)

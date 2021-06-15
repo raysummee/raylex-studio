@@ -22,8 +22,6 @@ class ModelTrackHelper{
   }
 
   Future<void> addAll(List<ModelTrack> modelTracks) async{
-    HiveList<ModelTrack> hiveList = HiveList(ModelTrackHelper().box());
     await box().addAll(modelTracks);
-    hiveList.addAll(modelTracks);
   }
 }

@@ -18,11 +18,12 @@ class ModelRecordAdapter extends TypeAdapter<ModelRecord> {
     };
     return ModelRecord(
       name: fields[0] as String,
-      previewTrack: fields[4] as ModelTrack,
+      previewTrack: fields[4] as ModelTrack?,
+      tracks: (fields[1] as List?)?.cast<ModelTrack>(),
       exported: fields[5] as bool,
       onCreated: fields[2] as DateTime,
       onUpdated: fields[3] as DateTime,
-    )..tracks = (fields[1] as HiveList?)?.castHiveList();
+    );
   }
 
   @override
