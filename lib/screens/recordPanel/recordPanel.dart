@@ -45,7 +45,7 @@ class _RecordPanelState extends State<RecordPanel> {
     if(widget.record==null){
       record = ModelRecord(
         name: "New Recording", 
-        tracks: [ModelTrack(name: "Track 1", path: 11, milis: 0)], 
+        tracks: [ModelTrack(name: "Track 1", path: 11, milis: 0, recordType: RecordTileType.Record)], 
         exported: false, 
         onCreated: DateTime.now(), 
         onUpdated: DateTime.now()
@@ -101,7 +101,7 @@ class _RecordPanelState extends State<RecordPanel> {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: RecordTrackTile(
                             trackName: record.tracks![index].name,
-                            type: RecordTileType.Record,
+                            type: record.tracks![index].recordType
                           ),
                         );
                       }
