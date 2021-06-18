@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/logic/lib/libRecord.dart';
 part 'modelTrack.g.dart';
 
@@ -10,11 +11,13 @@ class ModelTrack{
   int path;
   @HiveField(2)
   double milis;
+  RecordTileType recordType;
   LibRecord? record;
   ModelTrack({
     required this.name,
     required this.path,
     required this.milis,
-    this.record
+    this.record,
+    this.recordType: RecordTileType.None
   });
 }
