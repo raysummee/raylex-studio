@@ -3,16 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dart';
 import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
+import 'package:raylex_studio/logic/models/modelTrack.dart';
 
-class SongTileExpanded extends StatelessWidget {
+class SongTileExpanded extends StatefulWidget {
   final String recordLabel;
   final DateTime dateTime;
+  final ModelTrack track;
   const SongTileExpanded({ 
     required this.recordLabel, 
     required this.dateTime, 
+    required this.track,
     Key? key 
   }) : super(key: key);
 
+  @override
+  _SongTileExpandedState createState() => _SongTileExpandedState();
+}
+
+class _SongTileExpandedState extends State<SongTileExpanded> {
+  double seekValue = 0.0;
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
@@ -28,7 +37,7 @@ class SongTileExpanded extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                recordLabel,
+                widget.recordLabel,
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w500
@@ -41,7 +50,7 @@ class SongTileExpanded extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                DateFormat('dd-MMM-yyyy').format(dateTime),
+                DateFormat('dd-MMM-yyyy').format(widget.dateTime),
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -62,8 +71,13 @@ class SongTileExpanded extends StatelessWidget {
                   trackShape: CustomSliderTrackShape()
                 ),
                 child: Slider(
-                  value: 0.4, 
-                  onChanged: (val){}
+                  value: seekValue, 
+                  max: widget.track.milis,
+                  onChanged: (val){
+                    setState(() {
+                      seekValue = val;
+                    });
+                  }
                 ),
               ),
             ),

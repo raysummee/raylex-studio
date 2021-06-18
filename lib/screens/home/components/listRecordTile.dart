@@ -37,6 +37,7 @@ class _ListRecordTileState extends State<ListRecordTile> {
             firstChild: SongTileExpanded(
               recordLabel: ModelRecordHelper().getAt(index)!.name,
               dateTime: ModelRecordHelper().getAt(index)!.onUpdated,
+              track: ModelRecordHelper().getAt(index)!.previewTrack!,
             ),
             secondChild:  SongTile(
               recordLabel: ModelRecordHelper().getAt(index)!.name,
