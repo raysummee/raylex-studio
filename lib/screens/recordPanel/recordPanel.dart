@@ -20,7 +20,7 @@ class RecordPanel extends StatefulWidget {
 }
 
 class _RecordPanelState extends State<RecordPanel> {
-  double sliderValue = 0.5;
+  double sliderValue = 0.0;
   late ModelRecord record;
   late ChewieController chewieController;
   final videoPlayerController = VideoPlayerController.asset('assets/images/butterfly.mp4');
@@ -37,6 +37,9 @@ class _RecordPanelState extends State<RecordPanel> {
     chewieController.dispose();
     videoPlayerController.dispose();
     // LibRecord.dispose();
+    record.tracks!.forEach((track) {
+      track.record!.dispose();
+    });
     super.dispose();
   }
 
@@ -54,7 +57,7 @@ class _RecordPanelState extends State<RecordPanel> {
       record = widget.record!;
     }
     LibRecord libRecord = new LibRecord();
-    libRecord.init();
+    libRecord.init("Track 1");
     record.tracks![0].record = libRecord;
     // videoPlayerController.initialize().then((value) => videoPlayerController.play());
     // videoPlayerController.addListener(() {
@@ -115,13 +118,27 @@ class _RecordPanelState extends State<RecordPanel> {
             ),
           ),
           AddNewTrackButton(
-            onPlayClick: (play){},
+            onPlayClick: (play){
+              record.tracks!.forEach((track) {
+                if(track.recordType==RecordTileType.Record){
+                  play? track.record!.recordStart(): track.record!.stopRecorder();
+                  // Future.delayed(Duration(seconds: 10),(){
+                  //   track.record!.stopRecorder();
+                  // });
+                }else{
+                  play? track.record!.play(() { }): track.record!.stopPlayer();
+                  // Future.delayed(Duration(seconds: 10),(){
+                  //   track.record!.stopPlayer();
+                  // });
+                }
+              });
+            },
             addNewTrack: () async{
               print("Adding");
               var track = ModelTrack(name: "New Track ${record.tracks!.length+1}", path: 112, milis: 0);
               track.record = LibRecord();
               print("initing");
-              await track.record!.init();
+              await track.record!.init(track.name);
               print("added, state changing");
               setState(() {
                 record.tracks!.add(track);
