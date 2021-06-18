@@ -100,8 +100,7 @@ class _RecordPanelState extends State<RecordPanel> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: RecordTrackTile(
-                            trackName: record.tracks![index].name,
-                            type: record.tracks![index].recordType
+                            track: record.tracks![index]
                           ),
                         );
                       }

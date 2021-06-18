@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
+import 'package:raylex_studio/logic/models/modelTrack.dart';
 
 class RecordTrackTile extends StatelessWidget {
-  final String trackName;
-  final RecordTileType type;
+  final ModelTrack track;
   const RecordTrackTile({ 
     Key? key, 
-    required this.trackName, 
-    required this.type 
+    required this.track
   }) : super(key: key);
 
   @override
@@ -15,7 +14,7 @@ class RecordTrackTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.fromLTRB(28, 16, 28, 16),
       title: Text(
-        trackName,
+        track.name,
         style: TextStyle(
           fontSize: 17,
           fontWeight: FontWeight.bold
@@ -23,7 +22,7 @@ class RecordTrackTile extends StatelessWidget {
       ),
       tileColor: Colors.white,
       trailing: ((){
-        switch (type) {
+        switch (track.recordType) {
           case RecordTileType.None:
             return null;
           case RecordTileType.Display:
