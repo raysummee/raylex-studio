@@ -1,7 +1,15 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_sound (8.1.4):
+    - Flutter
+    - mobile-ffmpeg-full (= 4.4.LTS)
+    - tau_core (= 8.1.4)
+  - mobile-ffmpeg-full (4.4.LTS)
   - path_provider (0.0.1):
     - Flutter
+  - "permission_handler (5.1.0+2)":
+    - Flutter
+  - tau_core (8.1.4)
   - video_player (0.0.1):
     - Flutter
   - wakelock (0.0.1):
@@ -9,15 +17,26 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
+
+SPEC REPOS:
+  trunk:
+    - mobile-ffmpeg-full
+    - tau_core
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_sound:
+    :path: ".symlinks/plugins/flutter_sound/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
   wakelock:
@@ -25,10 +44,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_sound: b7e3e75915112839e8bb926b6bab1d28121ac6d5
+  mobile-ffmpeg-full: f17c82219b4ff9e4018b5e21f88b78c28a3475db
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
+  tau_core: 8e07b9ce46e5e1b1956fb4d5e9ac713206e5c315
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: e6ee83a2d2ce2563a55fde6f9a5e0ead4f649380
 
 COCOAPODS: 1.10.1
