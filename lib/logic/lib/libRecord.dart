@@ -3,7 +3,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class LibRecord{
-  static FlutterSoundPlayer? _mPlayer;
+  // static FlutterSoundPlayer? _mPlayer;
   static FlutterSoundRecorder? _mRecorder;
   static bool _mPlayerIsInited = false;
   static bool _mRecorderIsInited = false;
@@ -11,17 +11,17 @@ class LibRecord{
   static String _mPath = 'track_1.aac';
 
   static Future<void> init() async{
-    _mPlayer = FlutterSoundPlayer();
+    // _mPlayer = FlutterSoundPlayer();
     _mRecorder = FlutterSoundRecorder();
-    await _mPlayer!.openAudioSession();
+    // await _mPlayer!.openAudioSession();
     _mPlayerIsInited = true;
     await openTheRecorder();
   }
 
   static void dispose(){
-    _mPlayer!.closeAudioSession();
+    // _mPlayer!.closeAudioSession();
     _mRecorder!.closeAudioSession();
-    _mPlayer = null;
+    // _mPlayer = null;
     _mRecorder = null;
   }
 
@@ -33,24 +33,24 @@ class LibRecord{
   }
 
 
-  static Future<void> play(void Function() whenFinished) async{
-    assert(
-      _mPlayerIsInited &&
-      _mplaybackReady &&
-      _mRecorder!.isStopped &&
-      _mPlayer!.isStopped
-    );
+  // static Future<void> play(void Function() whenFinished) async{
+  //   assert(
+  //     _mPlayerIsInited &&
+  //     _mplaybackReady &&
+  //     _mRecorder!.isStopped &&
+  //     _mPlayer!.isStopped
+  //   );
 
-    await _mPlayer!.startPlayer(
-      fromURI: _mPath,
-      //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
-      whenFinished: whenFinished
-    );
-  }
+  //   await _mPlayer!.startPlayer(
+  //     fromURI: _mPath,
+  //     //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
+  //     whenFinished: whenFinished
+  //   );
+  // }
 
-  static Future<void> stopPlayer() async{
-    await _mPlayer!.stopPlayer();
-  }
+  // static Future<void> stopPlayer() async{
+  //   await _mPlayer!.stopPlayer();
+  // }
 
   static Future<void> stopRecorder() async {
     await _mRecorder!.stopRecorder();
