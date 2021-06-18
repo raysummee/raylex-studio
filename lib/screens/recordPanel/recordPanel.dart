@@ -119,19 +119,19 @@ class _RecordPanelState extends State<RecordPanel> {
           ),
           AddNewTrackButton(
             onPlayClick: (play){
+              if(record.tracks!.where((track) => track.recordType==RecordTileType.Record).length>1){
+                print("one file can be recorded for now");
+                return false;
+              }
               record.tracks!.forEach((track) {
                 if(track.recordType==RecordTileType.Record){
                   play? track.record!.recordStart(): track.record!.stopRecorder();
-                  // Future.delayed(Duration(seconds: 10),(){
-                  //   track.record!.stopRecorder();
                   // });
                 }else{
                   play? track.record!.play(() { }): track.record!.stopPlayer();
-                  // Future.delayed(Duration(seconds: 10),(){
-                  //   track.record!.stopPlayer();
-                  // });
                 }
               });
+              return true;
             },
             addNewTrack: () async{
               print("Adding");

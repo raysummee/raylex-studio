@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddNewTrackButton extends StatefulWidget {
-  final void Function (bool) onPlayClick;
+  final bool Function (bool) onPlayClick;
   final VoidCallback addNewTrack;
   const AddNewTrackButton({ Key? key, required this.onPlayClick, required this.addNewTrack }) : super(key: key);
 
@@ -55,11 +55,11 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
               ), 
               onPressed: (){
                 if(animation.value==0){
+                 if(widget.onPlayClick(true))
                   animation.forward();
-                  widget.onPlayClick(true);
                 }else if(animation.value==1){
+                  if(widget.onPlayClick(false))
                   animation.reverse();
-                  widget.onPlayClick(false);
                 }
               }
             ),
