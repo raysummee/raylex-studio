@@ -1,9 +1,9 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
-import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
+import 'package:raylex_studio/logic/lib/libRecord.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
 import 'package:raylex_studio/screens/recordPanel/components/addNewTrackButton.dart';
@@ -36,6 +36,7 @@ class _RecordPanelState extends State<RecordPanel> {
   void dispose() {
     chewieController.dispose();
     videoPlayerController.dispose();
+    LibRecord.dispose();
     super.dispose();
   }
 
@@ -65,6 +66,7 @@ class _RecordPanelState extends State<RecordPanel> {
     //   showControls: false,
     //   aspectRatio: 16/9
     // );
+    LibRecord.init();
     super.initState();
   }
   @override
