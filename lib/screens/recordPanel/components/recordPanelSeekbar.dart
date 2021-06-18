@@ -4,14 +4,14 @@ import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dar
 import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
 
 class RecordPanelSeekbar extends StatefulWidget {
-  const RecordPanelSeekbar({ Key? key }) : super(key: key);
+  final double sliderValue;
+  const RecordPanelSeekbar({ Key? key, required this.sliderValue }) : super(key: key);
 
   @override
   _RecordPanelSeekbarState createState() => _RecordPanelSeekbarState();
 }
 
 class _RecordPanelSeekbarState extends State<RecordPanelSeekbar> {
-  double sliderValue = 0.5;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -33,11 +33,11 @@ class _RecordPanelSeekbarState extends State<RecordPanelSeekbar> {
               trackShape: CustomSliderTrackShape(dense: false)
             ),
             child: Slider(
-              value: sliderValue, 
+              value: widget.sliderValue, 
               onChanged: (val){
-                setState(() {
-                  sliderValue = val;
-                });
+                // setState(() {
+                //   sliderValue = val;
+                // });
               }
             ),
           ),

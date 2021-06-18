@@ -22,8 +22,22 @@ class RecordPanel extends StatefulWidget {
 class _RecordPanelState extends State<RecordPanel> {
   double sliderValue = 0.5;
   late ModelRecord record;
-  late var chewieController;
+  late ChewieController chewieController;
   final videoPlayerController = VideoPlayerController.asset('assets/images/butterfly.mp4');
+
+  void che(double val){
+    print(val.toString());
+    setState(() {
+      sliderValue = val;
+    });
+  }
+
+  @override
+  void dispose() {
+    chewieController.dispose();
+    videoPlayerController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -38,16 +52,19 @@ class _RecordPanelState extends State<RecordPanel> {
     }else{
       record = widget.record!;
     }
-    videoPlayerController.initialize().then((value) => videoPlayerController.play());
+    // videoPlayerController.initialize().then((value) => videoPlayerController.play());
+    // videoPlayerController.addListener(() {
+    //   videoPlayerController.position.then((value) => che(value!.inMilliseconds/7544));
+    // });
 
-    chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
-      autoPlay: false,
-      looping: false,
-      allowFullScreen: false,
-      showControls: false,
-      aspectRatio: 16/9
-    );
+    // chewieController = ChewieController(
+    //   videoPlayerController: videoPlayerController,
+    //   autoPlay: false,
+    //   looping: false,
+    //   allowFullScreen: false,
+    //   showControls: false,
+    //   aspectRatio: 16/9
+    // );
     super.initState();
   }
   @override
@@ -55,7 +72,7 @@ class _RecordPanelState extends State<RecordPanel> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        child: RecordPanelAppbar(title: record.name), 
+        child: RecordPanelAppbar(title: record.name, sliderValue: sliderValue,), 
         preferredSize: Size.fromHeight(85)
       ),
       body: Stack(
@@ -66,10 +83,10 @@ class _RecordPanelState extends State<RecordPanel> {
               height: MediaQuery.of(context).size.height-kToolbarHeight,
               child: Column(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 16/9,
-                    child: Chewie(controller: chewieController)
-                  ),
+                  // AspectRatio(
+                  //   aspectRatio: 16/9,
+                  //   child: Chewie(controller: chewieController)
+                  // ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: record.tracks==null?0:record.tracks!.length,
