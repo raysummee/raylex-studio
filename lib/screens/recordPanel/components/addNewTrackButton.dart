@@ -1,9 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AddNewTrackButton extends StatelessWidget {
-  const AddNewTrackButton({ Key? key }) : super(key: key);
+class AddNewTrackButton extends StatefulWidget {
+  final void Function (bool) onPlayClick;
+  final VoidCallback addNewTrack;
+  const AddNewTrackButton({ Key? key, required this.onPlayClick, required this.addNewTrack }) : super(key: key);
 
+  @override
+  _AddNewTrackButtonState createState() => _AddNewTrackButtonState();
+}
+
+class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProviderStateMixin{
+  late AnimationController animation;
+  @override
+  void initState() {
+    animation = AnimationController(
+      vsync: this,
+      lowerBound: 0,
+      upperBound: 1,
+      duration: Duration(milliseconds: 300)
+    );
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -29,12 +47,21 @@ class AddNewTrackButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CupertinoButton(
-              child: Icon(
-                Icons.play_arrow,  
+              child: AnimatedIcon(
+                icon: AnimatedIcons.play_pause,
+                progress: animation,
                 size: 30,                     
                 color: Color.fromARGB(255, 112, 112, 112),
               ), 
-              onPressed: (){}
+              onPressed: (){
+                if(animation.value==0){
+                  animation.forward();
+                  widget.onPlayClick(true);
+                }else if(animation.value==1){
+                  animation.reverse();
+                  widget.onPlayClick(false);
+                }
+              }
             ),
             CupertinoButton(
               onPressed: (){},

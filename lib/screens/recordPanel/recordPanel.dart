@@ -36,7 +36,7 @@ class _RecordPanelState extends State<RecordPanel> {
   void dispose() {
     chewieController.dispose();
     videoPlayerController.dispose();
-    LibRecord.dispose();
+    // LibRecord.dispose();
     super.dispose();
   }
 
@@ -53,6 +53,9 @@ class _RecordPanelState extends State<RecordPanel> {
     }else{
       record = widget.record!;
     }
+    LibRecord libRecord = new LibRecord();
+    libRecord.init();
+    record.tracks![0].record = libRecord;
     // videoPlayerController.initialize().then((value) => videoPlayerController.play());
     // videoPlayerController.addListener(() {
     //   videoPlayerController.position.then((value) => che(value!.inMilliseconds/7544));
@@ -66,7 +69,7 @@ class _RecordPanelState extends State<RecordPanel> {
     //   showControls: false,
     //   aspectRatio: 16/9
     // );
-    LibRecord.init();
+    // LibRecord.init();
     super.initState();
   }
   @override
@@ -112,7 +115,10 @@ class _RecordPanelState extends State<RecordPanel> {
               ),
             ),
           ),
-          AddNewTrackButton(),
+          AddNewTrackButton(
+            onPlayClick: (play){},
+            addNewTrack: (){},
+          ),
         ],
       ),
     );
