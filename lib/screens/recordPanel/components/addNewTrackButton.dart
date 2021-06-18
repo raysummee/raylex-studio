@@ -64,7 +64,7 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
               }
             ),
             CupertinoButton(
-              onPressed: (){},
+              onPressed: widget.addNewTrack,
               padding: EdgeInsets.zero,
               child: Row(
                 mainAxisSize: MainAxisSize.min,

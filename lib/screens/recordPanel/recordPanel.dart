@@ -100,7 +100,7 @@ class _RecordPanelState extends State<RecordPanel> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: RecordTrackTile(
-                            trackName: "Track 1",
+                            trackName: record.tracks![index].name,
                             type: RecordTileType.Record,
                           ),
                         );
@@ -117,7 +117,17 @@ class _RecordPanelState extends State<RecordPanel> {
           ),
           AddNewTrackButton(
             onPlayClick: (play){},
-            addNewTrack: (){},
+            addNewTrack: () async{
+              print("Adding");
+              var track = ModelTrack(name: "New Track ${record.tracks!.length+1}", path: 112, milis: 0);
+              track.record = LibRecord();
+              print("initing");
+              await track.record!.init();
+              print("added, state changing");
+              setState(() {
+                record.tracks!.add(track);
+              });
+            },
           ),
         ],
       ),
