@@ -8,7 +8,7 @@ class LibRecord{
   static bool _mPlayerIsInited = false;
   static bool _mRecorderIsInited = false;
   static bool _mplaybackReady = false;
-  static final String _mPath = 'flutter_sound_example.aac';
+  static String _mPath = 'track_1.aac';
 
   static Future<void> init() async{
     _mPlayer = FlutterSoundPlayer();
@@ -55,6 +55,14 @@ class LibRecord{
   static Future<void> stopRecorder() async {
     await _mRecorder!.stopRecorder();
     _mplaybackReady = true;
+  }
+
+  static String? changeTrack(String trackName) {
+    if(!_mRecorder!.isRecording){
+      _mPath = trackName.trim().replaceAll(" ", "_").toLowerCase();
+      return _mPath;
+    }
+    return null;
   }
 
   static Future<void> openTheRecorder() async {
