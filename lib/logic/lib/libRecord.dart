@@ -27,6 +27,8 @@ class LibRecord{
   }
 
   Future<void> recordStart() async{
+    await _mRecorder!.closeAudioSession();
+    await _mRecorder!.openAudioSession();
     await _mRecorder!.startRecorder(
       toFile: _mPath,
       //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
