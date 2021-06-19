@@ -25,6 +25,19 @@ class _RecordPanelState extends State<RecordPanel> {
   late ChewieController chewieController;
   final videoPlayerController = VideoPlayerController.asset('assets/images/butterfly.mp4');
 
+  int endedTracks = 0;
+  void checkAllTrackEnded(){
+    print("deub");
+    if(record.tracks!.any((element) => element.recordType==RecordTileType.Record)){
+      return;
+    }
+    endedTracks++;
+    if(endedTracks>=record.tracks!.length){
+      record.onPlayStopDispatch!();
+      endedTracks = 0;
+    }
+  }
+
   void che(double val){
     print(val.toString());
     setState(() {
@@ -36,7 +49,6 @@ class _RecordPanelState extends State<RecordPanel> {
   void dispose() {
     chewieController.dispose();
     videoPlayerController.dispose();
-    // LibRecord.dispose();
     record.tracks!.forEach((track) {
       track.record!.dispose();
     });
@@ -124,11 +136,11 @@ class _RecordPanelState extends State<RecordPanel> {
                 return false;
               }
               record.tracks!.forEach((track) {
+                print("tile type: ${track.recordType.toString()}");
                 if(track.recordType==RecordTileType.Record){
                   play? track.record!.recordStart(): track.record!.stopRecorder();
-                  // });
                 }else{
-                  play? track.record!.play(() {record.onPlayStopDispatch!();}): track.record!.stopPlayer();
+                  if(play) track.record!.play(() {checkAllTrackEnded();});
                 }
               });
               return true;
