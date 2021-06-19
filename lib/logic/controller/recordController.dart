@@ -44,7 +44,7 @@ class RecordController {
   }
 
   Future<void> saveRecording(ModelRecord record) async{
-    var basNameWithExtension = record.tracks![0].path;
+    var basNameWithExtension = record.tracks![0].path + ".aac";
     var source = File((await record.tracks![0].record!.url())!);
     var dest = (await getApplicationDocumentsDirectory()).path + "/" + basNameWithExtension;
     var file =  await moveFile(source,dest);
