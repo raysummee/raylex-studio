@@ -18,7 +18,7 @@ class ModelTrackAdapter extends TypeAdapter<ModelTrack> {
     };
     return ModelTrack(
       name: fields[0] as String,
-      path: fields[1] as int,
+      path: fields[1] as String,
       milis: fields[2] as double,
     );
   }

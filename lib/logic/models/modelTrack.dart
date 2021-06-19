@@ -8,7 +8,7 @@ class ModelTrack{
   @HiveField(0)
   String name;
   @HiveField(1)
-  int path;
+  String path;
   @HiveField(2)
   double milis;
   RecordTileType recordType;
