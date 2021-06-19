@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:intl/intl.dart';
 import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dart';
 import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
+import 'package:raylex_studio/logic/controller/playerController.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
 
 class SongTileExpanded extends StatefulWidget {
   final String recordLabel;
   final DateTime dateTime;
   final ModelTrack track;
+  final PlayerController playerController;
   const SongTileExpanded({ 
     required this.recordLabel, 
     required this.dateTime, 
     required this.track,
+    required this.playerController,
     Key? key 
   }) : super(key: key);
 
@@ -22,18 +24,34 @@ class SongTileExpanded extends StatefulWidget {
 }
 
 class _SongTileExpandedState extends State<SongTileExpanded> with TickerProviderStateMixin{
-  double seekValue = 0.0;
-  late FlutterSoundPlayer player;
   late AnimationController animationController;
+  double seekLower = 0;
+  double seekHigher = 0;
+  double seekCurrent = 0;
   @override
   void initState() {
-    player = FlutterSoundPlayer();
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
       lowerBound: 0,
       upperBound: 1
     );
+    widget.playerController.onDurationChange((duration){
+      if(seekHigher!=duration.inMilliseconds){
+        setState(() {
+          seekHigher = duration.inMilliseconds.toDouble();
+        });
+      }
+    });
+    widget.playerController.onPositionChange((duration){
+      setState(() {
+        seekCurrent = duration.inMilliseconds.toDouble();
+      });
+    });
+    widget.playerController.onComplete((){
+      print("debug");
+      animationController.reverse();
+    });
     super.initState();
   }
   @override
@@ -85,12 +103,12 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                   trackShape: CustomSliderTrackShape()
                 ),
                 child: Slider(
-                  value: seekValue, 
-                  max: widget.track.milis,
+                  value: seekCurrent, 
+                  max: seekHigher,
                   onChanged: (val){
-                    setState(() {
-                      seekValue = val;
-                    });
+                    // setState(() {
+                    //   seekValue = val;
+                    // });
                   }
                 ),
               ),
@@ -100,15 +118,13 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
               child: Row(
                 children: [
                   CupertinoButton(
-                    onPressed: (){
+                    onPressed: () async{
                       if(animationController.value==0){
                         animationController.forward();
-                        player.openAudioSession();
-                        player.startPlayer(fromURI: widget.track.path);
+                        widget.playerController.play(widget.track.path);
                       }else{
                         animationController.reverse();
-                        player.pausePlayer();
-                        player.closeAudioSession();
+                        widget.playerController.stop();
                       }
                     }, 
                     child: AnimatedIcon(

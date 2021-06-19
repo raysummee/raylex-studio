@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/components/tile/songTile.dart';
 import 'package:raylex_studio/components/tile/songTileExpanded.dart';
+import 'package:raylex_studio/logic/controller/playerController.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
 
 class ListRecordTile extends StatefulWidget {
@@ -11,6 +12,7 @@ class ListRecordTile extends StatefulWidget {
 }
 
 class _ListRecordTileState extends State<ListRecordTile> {
+  PlayerController controller = PlayerController();
   int expandedRecording = -1;
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class _ListRecordTileState extends State<ListRecordTile> {
               CrossFadeState.showSecond,
             duration: Duration(milliseconds: 300),
             firstChild: SongTileExpanded(
+              playerController: controller,
               recordLabel: ModelRecordHelper().getAt(index)!.name,
               dateTime: ModelRecordHelper().getAt(index)!.onUpdated,
               track: ModelRecordHelper().getAt(index)!.previewTrack!,
