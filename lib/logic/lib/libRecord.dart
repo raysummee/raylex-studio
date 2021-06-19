@@ -10,13 +10,17 @@ class LibRecord{
   static bool _mplaybackReady = false;
   static String _mPath = 'track_1.aac';
 
-  Future<void> init(String trackName) async{
+  Future<void> init(String path) async{
     _mPlayer = FlutterSoundPlayer();
     _mRecorder = FlutterSoundRecorder();
     await _mPlayer!.openAudioSession();
-    changeTrack(trackName);
+    changeTrack(path);
     _mPlayerIsInited = true;
     await openTheRecorder();
+  }
+
+  Future<String?> url() async{
+    return await _mRecorder!.getRecordURL(path: _mPath);
   }
 
   void dispose(){
