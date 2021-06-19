@@ -128,7 +128,7 @@ class _RecordPanelState extends State<RecordPanel> {
                   play? track.record!.recordStart(): track.record!.stopRecorder();
                   // });
                 }else{
-                  play? track.record!.play(() { }): track.record!.stopPlayer();
+                  play? track.record!.play(() {record.onPlayStopDispatch!();}): track.record!.stopPlayer();
                 }
               });
               return true;
@@ -144,6 +144,7 @@ class _RecordPanelState extends State<RecordPanel> {
                 record.tracks!.add(track);
               });
             },
+            modelRecord: record,
           ),
         ],
       ),

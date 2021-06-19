@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/logic/models/modelRecord.dart';
 
 class AddNewTrackButton extends StatefulWidget {
   final bool Function (bool) onPlayClick;
   final VoidCallback addNewTrack;
-  const AddNewTrackButton({ Key? key, required this.onPlayClick, required this.addNewTrack }) : super(key: key);
+  final ModelRecord modelRecord;
+  const AddNewTrackButton({ Key? key, required this.onPlayClick, required this.addNewTrack, required this.modelRecord }) : super(key: key);
 
   @override
   _AddNewTrackButtonState createState() => _AddNewTrackButtonState();
@@ -12,6 +14,14 @@ class AddNewTrackButton extends StatefulWidget {
 
 class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProviderStateMixin{
   late AnimationController animation;
+  void onPlay(){
+    if(mounted)
+    animation.forward();
+  }
+  void onStop(){
+    if(mounted)
+    animation.reverse();
+  }
   @override
   void initState() {
     animation = AnimationController(
@@ -20,6 +30,8 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
       upperBound: 1,
       duration: Duration(milliseconds: 300)
     );
+    widget.modelRecord.onPlayStopDispatch = onStop;
+    widget.modelRecord.onPlayingDispatch = onPlay;
     super.initState();
   }
   @override
