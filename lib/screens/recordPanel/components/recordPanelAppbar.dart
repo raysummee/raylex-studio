@@ -5,7 +5,8 @@ import 'package:raylex_studio/screens/recordPanel/components/recordPanelSeekbar.
 class RecordPanelAppbar extends StatelessWidget {
   final String title;
   final double sliderValue;
-  const RecordPanelAppbar({ Key? key, required this.title, required this.sliderValue }) : super(key: key);
+  final VoidCallback onEnd;
+  const RecordPanelAppbar({ Key? key, required this.title, required this.sliderValue, required this.onEnd }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,9 @@ class RecordPanelAppbar extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14)
                       ),
                     ),
-                    onPressed: (){}
+                    onPressed: (){
+                      onEnd();
+                    }
                   )
                 ],
               ),
