@@ -17,6 +17,10 @@ class ModelRecord{
   @HiveField(5)
   bool exported;
 
+
+  void Function()? onPlayingDispatch;
+  void Function()? onPlayStopDispatch;
+
   ModelRecord({
     required this.name,
     this.previewTrack,
