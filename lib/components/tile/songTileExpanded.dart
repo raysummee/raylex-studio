@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:intl/intl.dart';
 import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dart';
 import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
@@ -20,8 +21,21 @@ class SongTileExpanded extends StatefulWidget {
   _SongTileExpandedState createState() => _SongTileExpandedState();
 }
 
-class _SongTileExpandedState extends State<SongTileExpanded> {
+class _SongTileExpandedState extends State<SongTileExpanded> with TickerProviderStateMixin{
   double seekValue = 0.0;
+  late FlutterSoundPlayer player;
+  late AnimationController animationController;
+  @override
+  void initState() {
+    player = FlutterSoundPlayer();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+      lowerBound: 0,
+      upperBound: 1
+    );
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
@@ -86,9 +100,20 @@ class _SongTileExpandedState extends State<SongTileExpanded> {
               child: Row(
                 children: [
                   CupertinoButton(
-                    onPressed: (){}, 
-                    child: Icon(
-                      Icons.play_arrow,
+                    onPressed: (){
+                      if(animationController.value==0){
+                        animationController.forward();
+                        player.openAudioSession();
+                        player.startPlayer(fromURI: widget.track.path);
+                      }else{
+                        animationController.reverse();
+                        player.pausePlayer();
+                        player.closeAudioSession();
+                      }
+                    }, 
+                    child: AnimatedIcon(
+                      icon: AnimatedIcons.play_pause,
+                      progress: animationController,
                       size: 50,
                       color: Colors.black,
                     )
