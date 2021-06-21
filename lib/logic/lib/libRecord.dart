@@ -89,4 +89,11 @@ class LibRecord{
     await _mRecorder!.openAudioSession();
     _mRecorderIsInited = true;
   }
+
+  Stream<RecordingDisposition>? recorderProgressListen(){
+    if(_mRecorder!=null){
+      return _mRecorder!.onProgress;
+    }
+    return null;
+  }
 }
