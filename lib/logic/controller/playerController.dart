@@ -40,4 +40,8 @@ class PlayerController{
       handler();
     });
   }
+
+  Future<int> setSeek(Duration seek) async{
+    return await audioPlayer.seek(seek);
+  }
 }
