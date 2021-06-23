@@ -32,7 +32,7 @@ dependencies:
   video_player: ^2.1.6
   flutter_sound: ^8.1.4
   permission_handler: ^8.1.1
-  audioplayers: ^0.19.0
+  # audioplayers: ^0.19.0
 
 dev_dependencies:
   flutter_test:

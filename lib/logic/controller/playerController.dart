@@ -1,65 +1,43 @@
 import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 
 class PlayerController{
-  late AudioPlayer audioPlayer;
-  StreamSubscription<PlayerState>? onPlayerStateChange;
-  StreamSubscription<Duration>? onPlayerPositionChange;
-  StreamSubscription<Duration>? onPlayerDurationChange;
+  late FlutterSoundPlayer audioPlayer;
+  StreamSubscription<PlaybackDisposition>? onPlayerStateChange;
   PlayerController(){
-    AudioPlayer.logEnabled = false;
-    audioPlayer = AudioPlayer();
-    audioPlayer.setReleaseMode(ReleaseMode.STOP);
+    audioPlayer = FlutterSoundPlayer();
   }
-  Future<void> play(String fullpath) async{
+  Future<void> play(String fullpath, void Function() whenFinished) async{
     print(fullpath);
-    await audioPlayer.play(fullpath, isLocal: true);
+    await audioPlayer.setSubscriptionDuration(Duration(milliseconds: 100));
+    await audioPlayer.startPlayer(fromURI: "${fullpath.replaceFirst("/", "")}", whenFinished: whenFinished);
   } 
   Future<void> resume() async{
-    await audioPlayer.resume();
+    await audioPlayer.resumePlayer();
   }
 
   Future<void> pause() async{
-    await audioPlayer.pause();
+    await audioPlayer.pausePlayer();
   }
 
   Future<void> stop() async{
-    await audioPlayer.stop();
+    await audioPlayer.stopPlayer();
   }
 
-  Future<void> setNewUrl(String fullpath) async{
-    await audioPlayer.setUrl(fullpath, isLocal: true);
-  }
-
-  void onDurationChange(Function (Duration) handler){
-    onPlayerDurationChange = audioPlayer.onDurationChanged.listen((event) {
-      print("duration changed: ${event.inSeconds}");
-      handler(event);
+  void onChange(Function (Duration) durationHandler, Function (Duration) positionHandler) async{
+    await audioPlayer.openAudioSession();
+    onPlayerStateChange = audioPlayer.dispositionStream()!.listen((event) {
+      durationHandler(event.duration);
+      positionHandler(event.position);
     });
   }
 
-  void onPositionChange(Function(Duration) handler){
-    onPlayerPositionChange = audioPlayer.onAudioPositionChanged.listen((event) {
-      handler(event);
-    });
-  }
-
-  void onComplete(Function handler){
-    onPlayerStateChange = audioPlayer.onPlayerStateChanged.listen((event) {
-      if(event==PlayerState.COMPLETED||event==PlayerState.STOPPED)
-      handler();
-    });
-  }
-
-  Future<int> setSeek(Duration seek) async{
-    return await audioPlayer.seek(seek);
+  Future<void> setSeek(Duration seek) async{
+    await audioPlayer.seekToPlayer(seek);
   }
 
   void dispose() async{
     await onPlayerStateChange?.cancel();
-    await onPlayerPositionChange?.cancel();
-    await onPlayerDurationChange?.cancel();
-    // await audioPlayer.dispose();
   }
 
   

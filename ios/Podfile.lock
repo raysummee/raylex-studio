@@ -1,6 +1,4 @@
 PODS:
-  - audioplayers (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - flutter_sound (8.1.4):
     - Flutter
@@ -18,7 +16,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - Flutter (from `Flutter`)
   - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -32,8 +29,6 @@ SPEC REPOS:
     - tau_core
 
 EXTERNAL SOURCES:
-  audioplayers:
-    :path: ".symlinks/plugins/audioplayers/ios"
   Flutter:
     :path: Flutter
   flutter_sound:
@@ -48,7 +43,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock/ios"
 
 SPEC CHECKSUMS:
-  audioplayers: 455322b54050b30ea4b1af7cd9e9d105f74efa8c
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_sound: b7e3e75915112839e8bb926b6bab1d28121ac6d5
   mobile-ffmpeg-full: f17c82219b4ff9e4018b5e21f88b78c28a3475db

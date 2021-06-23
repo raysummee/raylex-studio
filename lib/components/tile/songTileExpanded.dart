@@ -43,22 +43,21 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
   }
 
   void changePlayerProps(){
-    widget.playerController.onDurationChange((duration){
-      if(seekHigher!=duration.inMilliseconds){
+    widget.playerController.onChange(
+      (duration) {
+        print("duration came");
+        if(seekHigher!=duration.inMilliseconds){
+          setState(() {
+            seekHigher = duration.inMilliseconds.toDouble();
+          });
+        }
+      }, 
+      (duration) {
         setState(() {
-          seekHigher = duration.inMilliseconds.toDouble();
+          seekCurrent = duration.inMilliseconds.toDouble();
         });
-      }
-    });
-    widget.playerController.onPositionChange((duration){
-      setState(() {
-        seekCurrent = duration.inMilliseconds.toDouble();
-      });
-    });
-    widget.playerController.onComplete((){
-      print("debug");
-      animationController.reverse();
-    });
+      },
+    );
   }
 
   @override
@@ -133,7 +132,7 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                     onPressed: () async{
                       if(animationController.value==0){
                         animationController.forward();
-                        widget.playerController.play(widget.track.path);
+                        widget.playerController.play(widget.track.path, ()=>animationController.reverse());
                       }else{
                         animationController.reverse();
                         widget.playerController.pause();
