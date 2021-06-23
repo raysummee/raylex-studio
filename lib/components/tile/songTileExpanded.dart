@@ -10,11 +10,13 @@ class SongTileExpanded extends StatefulWidget {
   final String recordLabel;
   final DateTime dateTime;
   final ModelTrack track;
+  final VoidCallback onDelete;
   final PlayerController playerController;
   const SongTileExpanded({ 
     required this.recordLabel, 
     required this.dateTime, 
     required this.track,
+    required this.onDelete,
     required this.playerController,
     Key? key 
   }) : super(key: key);
@@ -53,6 +55,11 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
       animationController.reverse();
     });
     super.initState();
+  }
+  @override
+  void dispose() {
+    widget.playerController.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -135,7 +142,7 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                     )
                   ),
                   CupertinoButton(
-                    onPressed: (){}, 
+                    onPressed: widget.onDelete, 
                     child: Icon(
                       Icons.delete,
                       size: 40,
