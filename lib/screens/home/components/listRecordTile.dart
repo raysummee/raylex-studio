@@ -38,6 +38,12 @@ class _ListRecordTileState extends State<ListRecordTile> {
             duration: Duration(milliseconds: 300),
             firstChild: SongTileExpanded(
               playerController: controller,
+              onDelete: (){
+                setState(() {
+                  expandedRecording = -1;
+                });
+                ModelRecordHelper().deleteAt(index);
+              },
               recordLabel: ModelRecordHelper().getAt(index)!.name,
               dateTime: ModelRecordHelper().getAt(index)!.onUpdated,
               track: ModelRecordHelper().getAt(index)!.previewTrack!,
