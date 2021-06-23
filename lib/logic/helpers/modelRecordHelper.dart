@@ -48,4 +48,8 @@ class ModelRecordHelper{
 
   Future<void> update(ModelRecord record) async{
   }
+
+  Future<void> deleteAt(int index) async{
+    await box().deleteAt(index);
+  }
 }
