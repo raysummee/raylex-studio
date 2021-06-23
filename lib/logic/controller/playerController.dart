@@ -1,10 +1,15 @@
+import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 
 class PlayerController{
   late AudioPlayer audioPlayer;
+  StreamSubscription<PlayerState>? onPlayerStateChange;
+  StreamSubscription<Duration>? onPlayerPositionChange;
+  StreamSubscription<Duration>? onPlayerDurationChange;
   PlayerController(){
     AudioPlayer.logEnabled = false;
     audioPlayer = AudioPlayer();
+    audioPlayer.setReleaseMode(ReleaseMode.STOP);
   }
   Future<void> play(String fullpath) async{
     print(fullpath);
@@ -14,28 +19,33 @@ class PlayerController{
     await audioPlayer.resume();
   }
 
+  Future<void> pause() async{
+    await audioPlayer.pause();
+  }
+
   Future<void> stop() async{
     await audioPlayer.stop();
   }
 
   Future<void> setNewUrl(String fullpath) async{
-    await audioPlayer.setUrl(fullpath);
+    await audioPlayer.setUrl(fullpath, isLocal: true);
   }
 
   void onDurationChange(Function (Duration) handler){
-    audioPlayer.onDurationChanged.listen((event) {
+    onPlayerDurationChange = audioPlayer.onDurationChanged.listen((event) {
+      print("duration changed: ${event.inSeconds}");
       handler(event);
     });
   }
 
   void onPositionChange(Function(Duration) handler){
-    audioPlayer.onAudioPositionChanged.listen((event) {
+    onPlayerPositionChange = audioPlayer.onAudioPositionChanged.listen((event) {
       handler(event);
     });
   }
 
   void onComplete(Function handler){
-    audioPlayer.onPlayerStateChanged.listen((event) {
+    onPlayerStateChange = audioPlayer.onPlayerStateChanged.listen((event) {
       if(event==PlayerState.COMPLETED||event==PlayerState.STOPPED)
       handler();
     });
@@ -44,4 +54,13 @@ class PlayerController{
   Future<int> setSeek(Duration seek) async{
     return await audioPlayer.seek(seek);
   }
+
+  void dispose() async{
+    await onPlayerStateChange?.cancel();
+    await onPlayerPositionChange?.cancel();
+    await onPlayerDurationChange?.cancel();
+    await audioPlayer.dispose();
+  }
+
+  
 }
