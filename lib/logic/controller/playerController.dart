@@ -59,7 +59,7 @@ class PlayerController{
     await onPlayerStateChange?.cancel();
     await onPlayerPositionChange?.cancel();
     await onPlayerDurationChange?.cancel();
-    await audioPlayer.dispose();
+    // await audioPlayer.dispose();
   }
 
   

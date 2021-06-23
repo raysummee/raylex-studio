@@ -38,6 +38,11 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
       lowerBound: 0,
       upperBound: 1
     );
+    changePlayerProps();
+    super.initState();
+  }
+
+  void changePlayerProps(){
     widget.playerController.onDurationChange((duration){
       if(seekHigher!=duration.inMilliseconds){
         setState(() {
@@ -54,8 +59,8 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
       print("debug");
       animationController.reverse();
     });
-    super.initState();
   }
+
   @override
   void dispose() {
     widget.playerController.dispose();
@@ -131,7 +136,7 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                         widget.playerController.play(widget.track.path);
                       }else{
                         animationController.reverse();
-                        widget.playerController.stop();
+                        widget.playerController.pause();
                       }
                     }, 
                     child: AnimatedIcon(
