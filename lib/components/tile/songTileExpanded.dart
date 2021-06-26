@@ -117,9 +117,10 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                   value: seekCurrent, 
                   max: seekHigher,
                   onChanged: (val){
-                    // setState(() {
-                    //   seekValue = val;
-                    // });
+                    widget.playerController.setSeek(Duration(milliseconds: val.toInt()));
+                    setState(() {
+                      seekCurrent = val;
+                    });
                   }
                 ),
               ),
@@ -132,7 +133,12 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                     onPressed: () async{
                       if(animationController.value==0){
                         animationController.forward();
-                        widget.playerController.play(widget.track.path, ()=>animationController.reverse());
+                        print(seekCurrent!=0&&seekCurrent<seekHigher);
+                        if(seekCurrent!=0&&seekCurrent<seekHigher){
+                          widget.playerController.resume();
+                        }{
+                          widget.playerController.play(widget.track.path, ()=>animationController.reverse());
+                        }
                       }else{
                         animationController.reverse();
                         widget.playerController.pause();
