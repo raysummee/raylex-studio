@@ -65,7 +65,7 @@ class RecordController {
     final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
     List<String> fileNames = tracks.map((e) => e.path).toList();
     String fileFilters = fileNames.map((e) => "-i $e").toList().join(" ");
-    _flutterFFmpeg.execute("-y $fileFilters -filter_complex amerge ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
+    _flutterFFmpeg.execute("-y $fileFilters -filter_complex amix=inputs=${fileNames.length} ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
   }
 
 }
