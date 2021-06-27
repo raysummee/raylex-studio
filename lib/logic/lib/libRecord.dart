@@ -3,11 +3,11 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class LibRecord{
-  static FlutterSoundPlayer? _mPlayer;
-  static FlutterSoundRecorder? _mRecorder;
-  static bool _mPlayerIsInited = false;
-  static bool _mRecorderIsInited = false;
-  static bool _mplaybackReady = false;
+  FlutterSoundPlayer? _mPlayer;
+  FlutterSoundRecorder? _mRecorder;
+  bool _mPlayerIsInited = false;
+  bool _mRecorderIsInited = false;
+  bool _mplaybackReady = false;
 
   Future<void> init() async{
     _mPlayer = FlutterSoundPlayer();
