@@ -20,19 +20,22 @@ class ModelTrackAdapter extends TypeAdapter<ModelTrack> {
       name: fields[0] as String,
       path: fields[1] as String,
       milis: fields[2] as double,
+      fileType: fields[3] as FileType,
     );
   }
 
   @override
   void write(BinaryWriter writer, ModelTrack obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.path)
       ..writeByte(2)
-      ..write(obj.milis);
+      ..write(obj.milis)
+      ..writeByte(3)
+      ..write(obj.fileType);
   }
 
   @override

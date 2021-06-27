@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:raylex_studio/logic/enums/FileType.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/logic/lib/libRecord.dart';
 part 'modelTrack.g.dart';
@@ -11,12 +12,15 @@ class ModelTrack{
   String path;
   @HiveField(2)
   double milis;
+  @HiveField(3)
+  FileType fileType;
   RecordTileType recordType;
   LibRecord? record;
   ModelTrack({
     required this.name,
     required this.path,
     required this.milis,
+    this.fileType:FileType.audio,
     this.record,
     this.recordType: RecordTileType.None
   });
