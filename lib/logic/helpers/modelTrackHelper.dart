@@ -24,4 +24,8 @@ class ModelTrackHelper{
   Future<void> addAll(List<ModelTrack> modelTracks) async{
     await box().addAll(modelTracks);
   }
+
+  Future<void> deleteAt(int index) async{
+    await box().deleteAt(index);
+  }
 }
