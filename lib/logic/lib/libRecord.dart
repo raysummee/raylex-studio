@@ -32,7 +32,7 @@ class LibRecord{
     await _mRecorder!.closeAudioSession();
     await _mRecorder!.openAudioSession();
     await _mRecorder!.startRecorder(
-      toFile: path+".acc",
+      toFile: path,
       //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
     );
     print("start record $path");
@@ -53,7 +53,7 @@ class LibRecord{
     print("playing");
 
     await _mPlayer!.startPlayer(
-      fromURI: path+".acc",
+      fromURI: path,
       //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
       whenFinished: whenFinished
     );

@@ -46,8 +46,8 @@ class RecordController {
   }
   
   Future<File> saveFileToDoc(ModelTrack track) async {
-    var basNameWithExtension = track.path + ".aac";
-    var source = File((await track.record!.url(track.path+".acc"))!);
+    var basNameWithExtension = track.path;
+    var source = File((await track.record!.url(track.path))!);
     var dest = (await getApplicationDocumentsDirectory()).path + "/" + basNameWithExtension;
     return await moveFile(source,dest);
   }
