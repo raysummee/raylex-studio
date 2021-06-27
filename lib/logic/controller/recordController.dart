@@ -32,9 +32,9 @@ class RecordController {
     record.tracks!.forEach((track) {
       print("tile type: ${track.recordType.toString()}");
       if(track.recordType==RecordTileType.Record){
-        play? track.record!.recordStart(): track.record!.stopRecorder();
+        play? track.record!.recordStart(track.path): track.record!.stopRecorder();
       }else{
-        play? track.record!.play(()=> checkAllTrackEnded(record)) : track.record!.stopPlayer();
+        play? track.record!.play(track.path,()=> checkAllTrackEnded(record)) : track.record!.stopPlayer();
       }
     });
     return true;
@@ -47,7 +47,7 @@ class RecordController {
   
   Future<File> saveFileToDoc(ModelTrack track) async {
     var basNameWithExtension = track.path + ".aac";
-    var source = File((await track.record!.url())!);
+    var source = File((await track.record!.url(track.path))!);
     var dest = (await getApplicationDocumentsDirectory()).path + "/" + basNameWithExtension;
     return await moveFile(source,dest);
   }

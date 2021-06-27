@@ -8,18 +8,16 @@ class LibRecord{
   static bool _mPlayerIsInited = false;
   static bool _mRecorderIsInited = false;
   static bool _mplaybackReady = false;
-  static String _mPath = 'track_1.aac';
 
-  Future<void> init(String path) async{
+  Future<void> init() async{
     _mPlayer = FlutterSoundPlayer();
     _mRecorder = FlutterSoundRecorder();
     await _mPlayer!.openAudioSession();
-    changeTrack(path);
     _mPlayerIsInited = true;
     await openTheRecorder();
   }
 
-  Future<String?> url() async{
+  Future<String?> url(String _mPath) async{
     return await _mRecorder!.getRecordURL(path: _mPath);
   }
 
@@ -30,20 +28,20 @@ class LibRecord{
     _mRecorder = null;
   }
 
-  Future<void> recordStart() async{
+  Future<void> recordStart(String path) async{
     await _mRecorder!.closeAudioSession();
     await _mRecorder!.openAudioSession();
     await _mRecorder!.startRecorder(
-      toFile: _mPath,
+      toFile: path+".acc",
       //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
     );
-    print("start record $_mPath");
+    print("start record $path");
   }
 
 
-  Future<void> play(void Function() whenFinished) async{
+  Future<void> play(path ,void Function() whenFinished) async{
 
-    print("playing start $_mPath");
+    print("playing start $path");
     if(
       !_mPlayerIsInited ||
       !_mplaybackReady ||
@@ -55,7 +53,7 @@ class LibRecord{
     print("playing");
 
     await _mPlayer!.startPlayer(
-      fromURI: _mPath,
+      fromURI: path+".acc",
       //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
       whenFinished: whenFinished
     );
@@ -70,12 +68,6 @@ class LibRecord{
     await _mRecorder!.stopRecorder();
     _mplaybackReady = true;
     print("stop record");
-  }
-
-  void changeTrack(String trackName) {
-    if(!_mRecorder!.isRecording){
-      _mPath = trackName.trim().replaceAll(" ", "_").toLowerCase()+".aac";
-    }
   }
 
   Future<void> openTheRecorder() async {

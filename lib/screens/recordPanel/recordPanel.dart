@@ -57,7 +57,7 @@ class _RecordPanelState extends State<RecordPanel> {
       record = widget.record!;
     }
     LibRecord libRecord = new LibRecord();
-    libRecord.init("Track 1");
+    libRecord.init();
     record.tracks![0].record = libRecord;
     // videoPlayerController.initialize().then((value) => videoPlayerController.play());
     // videoPlayerController.addListener(() {
@@ -132,7 +132,7 @@ class _RecordPanelState extends State<RecordPanel> {
                 milis: 0
               );
               track.record = LibRecord();
-              await track.record!.init(track.name);
+              await track.record!.init();
               setState(() {
                 record.tracks!.add(track);
               });
