@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/logic/enums/FileType.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
+import 'package:raylex_studio/logic/helpers/modelTrackHelper.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
 
 class RecordTrackTile extends StatefulWidget {
   final ModelTrack track;
+  final int index;
   const RecordTrackTile({ 
     Key? key, 
-    required this.track
+    required this.track,
+    required this.index
   }) : super(key: key);
 
   @override
@@ -18,18 +22,22 @@ class _RecordTrackTileState extends State<RecordTrackTile> {
   Widget build(BuildContext context) {
     return ListTile(
       onLongPress: () {
-        setState(() {
-          widget.track.recordType = widget.track.recordType==RecordTileType.Display?
-            RecordTileType.None:
-            RecordTileType.Display;
-        });
+        ModelTrackHelper().deleteAt(widget.index);
       },
       onTap: (){
-        setState(() {
-            widget.track.recordType = widget.track.recordType==RecordTileType.Record?
+        if(widget.track.fileType==FileType.audio){
+          setState(() {
+              widget.track.recordType = widget.track.recordType==RecordTileType.Record?
+                RecordTileType.None:
+                RecordTileType.Record;
+          });
+        }else{
+          setState(() {
+              widget.track.recordType = widget.track.recordType==RecordTileType.Display?
               RecordTileType.None:
-              RecordTileType.Record;
-        });
+              RecordTileType.Display;
+          });
+        }
       },
       contentPadding: EdgeInsets.fromLTRB(28, 16, 28, 16),
       title: Text(
