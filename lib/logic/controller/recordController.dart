@@ -1,17 +1,14 @@
 import 'dart:io';
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
+import 'package:raylex_studio/logic/models/modelTrack.dart';
 
 class RecordController {
   Future<void> addNewTrack() async{
 
-  }
-
-  Future<File> moveFile(File sourceFile, String newPath) async {
-    final newFile = await sourceFile.copy(newPath);
-    return newFile;
   }
 
   int endedTracks = 0;
@@ -43,12 +40,32 @@ class RecordController {
     return true;
   }
 
-  Future<void> saveRecording(ModelRecord record) async{
-    var basNameWithExtension = record.tracks![0].path + ".aac";
-    var source = File((await record.tracks![0].record!.url())!);
-    var dest = (await getApplicationDocumentsDirectory()).path + "/" + basNameWithExtension;
-    var file =  await moveFile(source,dest);
-    record.tracks![0].path = file.path;
-    await ModelRecordHelper().add(name: "New", previewTrack: record.tracks![0], tracks: record.tracks);
+  Future<File> moveFile(File sourceFile, String newPath) async {
+    final newFile = await sourceFile.copy(newPath);
+    return newFile;
   }
+  
+  Future<File> saveFileToDoc(ModelTrack track) async {
+    var basNameWithExtension = track.path + ".aac";
+    var source = File((await track.record!.url())!);
+    var dest = (await getApplicationDocumentsDirectory()).path + "/" + basNameWithExtension;
+    return await moveFile(source,dest);
+  }
+
+  Future<void> saveRecording(ModelRecord record) async{
+    for(var track in record.tracks!){
+      track.path = (await saveFileToDoc(track)).path;
+    }
+    await mergeAudio(record.tracks!);
+    ModelTrack previewTrack = ModelTrack(name: "Preview", path: "${(await getApplicationDocumentsDirectory()).path}/output.aac", milis: 0);
+    await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
+  }
+
+  Future<void> mergeAudio(List<ModelTrack> tracks) async{
+    final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
+    List<String> fileNames = tracks.map((e) => e.path).toList();
+    String fileFilters = fileNames.map((e) => "-i $e").toList().join(" ");
+    _flutterFFmpeg.execute("-y $fileFilters -filter_complex amerge ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
+  }
+
 }

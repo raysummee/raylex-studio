@@ -37,13 +37,13 @@ class LibRecord{
       toFile: _mPath,
       //codec: kIsWeb ? Codec.opusWebM : Codec.aacADTS,
     );
-    print("start record");
+    print("start record $_mPath");
   }
 
 
   Future<void> play(void Function() whenFinished) async{
 
-    print("playing start");
+    print("playing start $_mPath");
     if(
       !_mPlayerIsInited ||
       !_mplaybackReady ||
