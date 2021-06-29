@@ -79,47 +79,28 @@ class _RecordPanelState extends State<RecordPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        child: RecordPanelAppbar(onEnd: () async{
-          await RecordController().saveRecording(record);
-          Navigator.of(context).pop();
-        },title: record.name, sliderValue: sliderValue,), 
-        preferredSize: Size.fromHeight(85)
-      ),
-      body: Stack(
+      body: Column(
         children: [ 
-          Transform.translate(
-            offset: Offset(0, 105),
-            child: Container(
-              height: MediaQuery.of(context).size.height-kToolbarHeight,
-              child: Column(
-                children: [
-                  // AspectRatio(
-                  //   aspectRatio: 16/9,
-                  //   child: Chewie(controller: chewieController)
-                  // ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: record.tracks==null?0:record.tracks!.length,
-                      padding: EdgeInsets.only(top: 16, bottom: 16),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: RecordTrackTile(
-                            track: record.tracks![index],
-                            index: index,
-                          ),
-                        );
-                      }
-                    ),
+          RecordPanelAppbar(
+            onEnd: () async{
+              await RecordController().saveRecording(record);
+              Navigator.of(context).pop();
+            },
+            title: record.name,
+          ), 
+          Expanded(
+            child: ListView.builder(
+              itemCount: record.tracks==null?0:record.tracks!.length,
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: RecordTrackTile(
+                    track: record.tracks![index],
+                    index: index,
                   ),
-                  Container(
-                    color: Theme.of(context).canvasColor,
-                    height: 60,
-                  )
-                ],
-              ),
+                );
+              }
             ),
           ),
           AddNewTrackButton(
