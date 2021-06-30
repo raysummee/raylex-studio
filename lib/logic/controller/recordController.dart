@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:raylex_studio/logic/context/appContext.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
+import 'package:raylex_studio/ux/screens/recordPanel/components/savingDialog.dart';
 
 class RecordController {
   Future<void> addNewTrack() async{
@@ -52,13 +55,22 @@ class RecordController {
     return await moveFile(source,dest);
   }
 
+  Future<void> saveRecordingPrompt(ModelRecord record) async{
+    await SavingDialog.show(saveRecording(record));
+  }
+
   Future<void> saveRecording(ModelRecord record) async{
-    for(var track in record.tracks!){
-      track.path = (await saveFileToDoc(track)).path;
+    await Future.delayed(Duration(milliseconds: 300));
+    try{
+      for(var track in record.tracks!){
+        track.path = (await saveFileToDoc(track)).path;
+      }
+      await mergeAudio(record.tracks!);
+      ModelTrack previewTrack = ModelTrack(name: "Preview", path: "${(await getApplicationDocumentsDirectory()).path}/output.aac", milis: 0);
+      await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
+    }catch (e){
+
     }
-    await mergeAudio(record.tracks!);
-    ModelTrack previewTrack = ModelTrack(name: "Preview", path: "${(await getApplicationDocumentsDirectory()).path}/output.aac", milis: 0);
-    await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
   }
 
   Future<void> mergeAudio(List<ModelTrack> tracks) async{
