@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -79,52 +81,65 @@ class _RecordPanelState extends State<RecordPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [ 
-          RecordPanelAppbar(
-            onEnd: () async{
-              if(didEdit)
-              await RecordController().saveRecordingPrompt(record);
-              Navigator.of(context).pop();
-            },
-            title: record.name,
-          ), 
-          Expanded(
-            child: ListView.builder(
-              itemCount: record.tracks==null?0:record.tracks!.length,
-              padding: EdgeInsets.only(top: 5, bottom: 5),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: RecordTrackTile(
-                    track: record.tracks![index],
-                    index: index,
-                  ),
-                );
-              }
+    return WillPopScope(
+      onWillPop: !didEdit&&Platform.isIOS? null :() async {
+        if(didEdit){
+          await RecordController().saveRecordingPrompt(record);
+          return true;
+        }
+        return true;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [ 
+            RecordPanelAppbar(
+              onEnd: () async{
+                if(didEdit)
+                await RecordController().saveRecordingPrompt(record);
+                Navigator.of(context).pop();
+              },
+              title: record.name,
+            ), 
+            Expanded(
+              child: ListView.builder(
+                itemCount: record.tracks==null?0:record.tracks!.length,
+                padding: EdgeInsets.only(top: 5, bottom: 5),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: RecordTrackTile(
+                      track: record.tracks![index],
+                      index: index,
+                    ),
+                  );
+                }
+              ),
             ),
-          ),
-          AddNewTrackButton(
-            onPlayClick: (play){
-              didEdit = true;
-              return RecordController().onPlaybuttonClicked(play, record);
-            },
-            addNewTrack: () async{
-              var track = ModelTrack(
-                name: "New Track ${record.tracks!.length+1}", 
-                path: "new_track_${record.tracks!.length+1}.acc", 
-                milis: 0
-              );
-              track.record = LibRecord();
-              await track.record!.init();
-              setState(() {
-                record.tracks!.add(track);
-              });
-            },
-            modelRecord: record,
-          ),
-        ],
+            AddNewTrackButton(
+              onPlayClick: (play){
+                if(!didEdit){
+                  setState(() {
+                    didEdit = true;
+                  });
+                }
+                return RecordController().onPlaybuttonClicked(play, record);
+              },
+              addNewTrack: () async{
+                var track = ModelTrack(
+                  name: "New Track ${record.tracks!.length+1}", 
+                  path: "new_track_${record.tracks!.length+1}.acc", 
+                  milis: 0
+                );
+                track.record = LibRecord();
+                await track.record!.init();
+                setState(() {
+                  record.tracks!.add(track);
+                });
+              },
+              modelRecord: record,
+            ),
+          ],
+        ),
       ),
     );
   }
