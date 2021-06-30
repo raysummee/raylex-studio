@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:raylex_studio/logic/enums/FileType.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
 import 'package:raylex_studio/logic/helpers/modelTrackHelper.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
@@ -20,6 +21,7 @@ class Db{
   void registerAdapters(){
     Hive.registerAdapter(ModelTrackAdapter());
     Hive.registerAdapter(ModelRecordAdapter());
+    Hive.registerAdapter(FileTypeAdapter());
   }
 
 }
