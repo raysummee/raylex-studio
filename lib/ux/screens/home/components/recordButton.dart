@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/components/dialog/twoOptionButtonDialog.dart';
 import 'package:raylex_studio/logic/context/appContext.dart';
-import 'package:raylex_studio/logic/models/modelRecord.dart';
-import 'package:raylex_studio/logic/models/modelTrack.dart';
+import 'package:raylex_studio/ux/components/dialog/twoOptionButtonDialog.dart';
 
 class RecordButton extends StatelessWidget {
   const RecordButton({ Key? key }) : super(key: key);

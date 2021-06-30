@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderOverlayShape.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
+import 'package:raylex_studio/ux/canvas/SliderShapes/customSliderOverlayShape.dart';
+import 'package:raylex_studio/ux/canvas/SliderShapes/customSliderThumbShape.dart';
+import 'package:raylex_studio/ux/canvas/SliderShapes/customSliderTrackShape.dart';
 
 class RecordPanelSeekbar extends StatefulWidget {
   final double sliderValue;

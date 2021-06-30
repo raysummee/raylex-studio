@@ -7,9 +7,9 @@ import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/logic/lib/libRecord.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
-import 'package:raylex_studio/screens/recordPanel/components/addNewTrackButton.dart';
-import 'package:raylex_studio/screens/recordPanel/components/recordPanelAppbar.dart';
-import 'package:raylex_studio/screens/recordPanel/components/recordTrackTile.dart';
+import 'package:raylex_studio/ux/screens/recordPanel/components/addNewTrackButton.dart';
+import 'package:raylex_studio/ux/screens/recordPanel/components/recordPanelAppbar.dart';
+import 'package:raylex_studio/ux/screens/recordPanel/components/recordTrackTile.dart';
 import 'package:video_player/video_player.dart';
 
 class RecordPanel extends StatefulWidget {
@@ -79,52 +79,58 @@ class _RecordPanelState extends State<RecordPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [ 
-          RecordPanelAppbar(
-            onEnd: () async{
-              if(didEdit)
-              await RecordController().saveRecording(record);
-              Navigator.of(context).pop();
-            },
-            title: record.name,
-          ), 
-          Expanded(
-            child: ListView.builder(
-              itemCount: record.tracks==null?0:record.tracks!.length,
-              padding: EdgeInsets.only(top: 5, bottom: 5),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: RecordTrackTile(
-                    track: record.tracks![index],
-                    index: index,
-                  ),
-                );
-              }
+    return WillPopScope(
+      onWillPop: () async {
+        // if(didEdit)
+        return true;
+      },
+      child: Scaffold(
+        body: Column(
+          children: [ 
+            RecordPanelAppbar(
+              onEnd: () async{
+                if(didEdit)
+                await RecordController().saveRecording(record);
+                Navigator.of(context).pop();
+              },
+              title: record.name,
+            ), 
+            Expanded(
+              child: ListView.builder(
+                itemCount: record.tracks==null?0:record.tracks!.length,
+                padding: EdgeInsets.only(top: 5, bottom: 5),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: RecordTrackTile(
+                      track: record.tracks![index],
+                      index: index,
+                    ),
+                  );
+                }
+              ),
             ),
-          ),
-          AddNewTrackButton(
-            onPlayClick: (play){
-              didEdit = true;
-              return RecordController().onPlaybuttonClicked(play, record);
-            },
-            addNewTrack: () async{
-              var track = ModelTrack(
-                name: "New Track ${record.tracks!.length+1}", 
-                path: "new_track_${record.tracks!.length+1}.acc", 
-                milis: 0
-              );
-              track.record = LibRecord();
-              await track.record!.init();
-              setState(() {
-                record.tracks!.add(track);
-              });
-            },
-            modelRecord: record,
-          ),
-        ],
+            AddNewTrackButton(
+              onPlayClick: (play){
+                didEdit = true;
+                return RecordController().onPlaybuttonClicked(play, record);
+              },
+              addNewTrack: () async{
+                var track = ModelTrack(
+                  name: "New Track ${record.tracks!.length+1}", 
+                  path: "new_track_${record.tracks!.length+1}.acc", 
+                  milis: 0
+                );
+                track.record = LibRecord();
+                await track.record!.init();
+                setState(() {
+                  record.tracks!.add(track);
+                });
+              },
+              modelRecord: record,
+            ),
+          ],
+        ),
       ),
     );
   }

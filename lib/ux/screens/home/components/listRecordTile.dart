@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/components/tile/songTile.dart';
-import 'package:raylex_studio/components/tile/songTileExpanded.dart';
 import 'package:raylex_studio/logic/controller/playerController.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
+import 'package:raylex_studio/ux/components/tile/songTile.dart';
+import 'package:raylex_studio/ux/components/tile/songTileExpanded.dart';
 
 class ListRecordTile extends StatefulWidget {
   const ListRecordTile({ Key? key }) : super(key: key);

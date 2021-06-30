@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/components/appbar/genericAppbar.dart';
-import 'package:raylex_studio/components/tile/songTile.dart';
+import 'package:raylex_studio/ux/components/appbar/genericAppbar.dart';
+import 'package:raylex_studio/ux/components/tile/songTile.dart';
 
 class AddedSongs extends StatelessWidget {
   const AddedSongs({ Key? key }) : super(key: key);

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderThumbShape.dart';
-import 'package:raylex_studio/components/SliderShapes/customSliderTrackShape.dart';
 import 'package:raylex_studio/logic/controller/playerController.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
+import 'package:raylex_studio/ux/canvas/SliderShapes/customSliderThumbShape.dart';
+import 'package:raylex_studio/ux/canvas/SliderShapes/customSliderTrackShape.dart';
 
 class SongTileExpanded extends StatefulWidget {
   final String recordLabel;

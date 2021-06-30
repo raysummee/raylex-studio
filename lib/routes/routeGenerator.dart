@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
-import 'package:raylex_studio/screens/addedSongs/addedSongs.dart';
-import 'package:raylex_studio/screens/home/home.dart';
-import 'package:raylex_studio/screens/recordPanel/recordPanel.dart';
+import 'package:raylex_studio/ux/screens/addedSongs/addedSongs.dart';
+import 'package:raylex_studio/ux/screens/home/home.dart';
+import 'package:raylex_studio/ux/screens/recordPanel/recordPanel.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
