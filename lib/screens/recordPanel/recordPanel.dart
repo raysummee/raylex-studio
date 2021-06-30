@@ -22,6 +22,7 @@ class RecordPanel extends StatefulWidget {
 
 class _RecordPanelState extends State<RecordPanel> {
   double sliderValue = 0.0;
+  bool didEdit = false;
   late ModelRecord record;
   late ChewieController chewieController;
   final videoPlayerController = VideoPlayerController.asset('assets/images/butterfly.mp4');
@@ -83,6 +84,7 @@ class _RecordPanelState extends State<RecordPanel> {
         children: [ 
           RecordPanelAppbar(
             onEnd: () async{
+              if(didEdit)
               await RecordController().saveRecording(record);
               Navigator.of(context).pop();
             },
@@ -105,6 +107,7 @@ class _RecordPanelState extends State<RecordPanel> {
           ),
           AddNewTrackButton(
             onPlayClick: (play){
+              didEdit = true;
               return RecordController().onPlaybuttonClicked(play, record);
             },
             addNewTrack: () async{
