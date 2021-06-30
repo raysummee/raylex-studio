@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:raylex_studio/logic/context/appContext.dart';
 
 class SavingDialog extends StatefulWidget {
@@ -40,7 +41,7 @@ class _SavingDialogState extends State<SavingDialog> {
           setState(() {
             saved = true;
           });
-          Future.delayed(Duration(milliseconds: 500),(){
+          Future.delayed(Duration(seconds: 3),(){
             Navigator.of(context).pop();
           });
         }
@@ -64,12 +65,26 @@ class _SavingDialogState extends State<SavingDialog> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator(
-                    color: Colors.red,
-                  )
+                AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  child: saved? 
+                  SizedBox(
+                    key: GlobalKey(),
+                    height: 50,
+                    width: 50,
+                    child: Lottie.asset(
+                      "assets/lottie/succeed.json",
+                      fit: BoxFit.cover
+                    ),
+                  ):
+                  SizedBox(
+                    key: GlobalKey(),
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator(
+                      color: Colors.red,
+                    )
+                  ),
                 ),
                 SizedBox(height: 18,),
                 Text(
