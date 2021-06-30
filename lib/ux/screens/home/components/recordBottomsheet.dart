@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/screens/home/components/recordButton.dart';
+import 'package:raylex_studio/ux/screens/home/components/recordButton.dart';
 
 class RecordBottomsheet extends StatelessWidget {
   const RecordBottomsheet({ Key? key }) : super(key: key);

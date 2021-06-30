@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raylex_studio/screens/recordPanel/components/recordPanelSeekbar.dart';
 
 class RecordPanelAppbar extends StatelessWidget {
   final String title;
