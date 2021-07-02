@@ -6,5 +6,7 @@ enum FileType{
   @HiveField(0)
   audio,
   @HiveField(2)
-  video
+  video,
+  @HiveField(3)
+  nonRecordable
 }

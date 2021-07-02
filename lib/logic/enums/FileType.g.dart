@@ -17,6 +17,8 @@ class FileTypeAdapter extends TypeAdapter<FileType> {
         return FileType.audio;
       case 2:
         return FileType.video;
+      case 3:
+        return FileType.nonRecordable;
       default:
         return FileType.audio;
     }
@@ -30,6 +32,9 @@ class FileTypeAdapter extends TypeAdapter<FileType> {
         break;
       case FileType.video:
         writer.writeByte(2);
+        break;
+      case FileType.nonRecordable:
+        writer.writeByte(3);
         break;
     }
   }
