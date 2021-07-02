@@ -29,6 +29,7 @@ class LibRecord{
   }
 
   Future<void> recordStart(String path) async{
+    if(path.contains("/")) return;
     await _mRecorder!.closeAudioSession();
     await _mRecorder!.openAudioSession();
     await _mRecorder!.startRecorder(
