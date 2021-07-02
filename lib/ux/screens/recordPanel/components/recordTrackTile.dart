@@ -31,12 +31,15 @@ class _RecordTrackTileState extends State<RecordTrackTile> {
                 RecordTileType.None:
                 RecordTileType.Record;
           });
-        }else{
+        }else if(widget.track.fileType==FileType.video){
           setState(() {
               widget.track.recordType = widget.track.recordType==RecordTileType.Display?
               RecordTileType.None:
               RecordTileType.Display;
           });
+        }else{
+          print("Not recordable audio");
+          //TODO should show some message as not recordable
         }
       },
       contentPadding: EdgeInsets.fromLTRB(28, 16, 28, 16),
