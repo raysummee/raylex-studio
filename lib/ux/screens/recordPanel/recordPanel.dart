@@ -51,7 +51,7 @@ class _RecordPanelState extends State<RecordPanel> {
     if(widget.record==null){
       record = ModelRecord(
         name: "New Recording", 
-        tracks: [ModelTrack(name: "Track 1", path: "track_1.acc", milis: 0, recordType: RecordTileType.Record)], 
+        tracks: [ModelTrack(name: "Track 1", path: "track_1.aac", milis: 0, recordType: RecordTileType.Record)], 
         exported: false, 
         onCreated: DateTime.now(), 
         onUpdated: DateTime.now()
@@ -127,9 +127,16 @@ class _RecordPanelState extends State<RecordPanel> {
               addNewTrack: () async{
                 var track = ModelTrack(
                   name: "New Track ${record.tracks!.length+1}", 
-                  path: "new_track_${record.tracks!.length+1}.acc", 
+                  path: "new_track_${record.tracks!.length+1}.aac", 
                   milis: 0
                 );
+                track.record = LibRecord();
+                await track.record!.init();
+                setState(() {
+                  record.tracks!.add(track);
+                });
+              },
+              importTrack: (track) async{
                 track.record = LibRecord();
                 await track.record!.init();
                 setState(() {

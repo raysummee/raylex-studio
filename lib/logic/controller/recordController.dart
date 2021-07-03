@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart' show FilePicker, FilePickerResult;
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:raylex_studio/logic/context/appContext.dart';
+import 'package:raylex_studio/logic/enums/FileType.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
@@ -10,8 +11,32 @@ import 'package:raylex_studio/logic/models/modelTrack.dart';
 import 'package:raylex_studio/ux/screens/recordPanel/components/savingDialog.dart';
 
 class RecordController {
-  Future<void> addNewTrack() async{
-
+  Future<ModelTrack?> importTrack() async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if(result==null) return null;
+    FileType fileType;
+    if(
+      result.files.first.extension!.toLowerCase() == 'mp3' || 
+      result.files.first.extension!.toLowerCase() == 'aac' ||
+      result.files.first.extension!.toLowerCase() == 'ogg'
+    ){
+      fileType = FileType.nonRecordable;
+    }else{
+      fileType = FileType.video;
+    }
+    var recorder =  FlutterSoundRecorder();
+    await recorder.openAudioSession();
+    String? newPath = await recorder.getRecordURL(path: result.files.single.name);
+    recorder.closeAudioSession();
+    await File(result.files.single.path!).copy(newPath!);
+    await File(result.files.single.path!).delete();
+    ModelTrack modelTrack = ModelTrack(
+      name: result.files.single.name.split(".").reversed.elementAt(1), 
+      path: result.files.single.name, 
+      milis: 0,
+      fileType: fileType,
+    );
+    return modelTrack;
   }
 
   int endedTracks = 0;
@@ -69,7 +94,7 @@ class RecordController {
       ModelTrack previewTrack = ModelTrack(name: "Preview", path: "${(await getApplicationDocumentsDirectory()).path}/output.aac", milis: 0);
       await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
     }catch (e){
-
+      print("ERROR: $e");
     }
   }
 

@@ -1,13 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raylex_studio/logic/controller/recordController.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
+import 'package:raylex_studio/logic/models/modelTrack.dart';
 import 'package:raylex_studio/ux/screens/recordPanel/components/addTrackOverlay.dart';
 
 class AddNewTrackButton extends StatefulWidget {
   final bool Function (bool) onPlayClick;
+  final void Function (ModelTrack) importTrack;
   final VoidCallback addNewTrack;
   final ModelRecord modelRecord;
-  const AddNewTrackButton({ Key? key, required this.onPlayClick, required this.addNewTrack, required this.modelRecord }) : super(key: key);
+  const AddNewTrackButton({ 
+    Key? key, 
+    required this.onPlayClick, 
+    required this.addNewTrack, 
+    required this.modelRecord,
+    required this.importTrack
+  }) : super(key: key);
 
   @override
   _AddNewTrackButtonState createState() => _AddNewTrackButtonState();
@@ -105,7 +114,16 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
                       context: context, 
                       layerLink: _layerLink, 
                       animation: animationOverlay,
-                      onTopTap: (){},
+                      onTopTap: () async{
+                        isNewTrackOvelayOpen = false;
+                        ModelTrack? modelTrack = await RecordController().importTrack();
+                        if(modelTrack == null) return;
+                        widget.importTrack(modelTrack);
+                        animationOverlay.reverse().then((value) { 
+                          _overlayEntry!.remove();
+                          _overlayEntry = null;
+                        });
+                      },
                       onBottomTap: (){
                         isNewTrackOvelayOpen = false;
                         widget.addNewTrack();
