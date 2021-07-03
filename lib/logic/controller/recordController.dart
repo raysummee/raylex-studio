@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart' show FilePicker, FilePickerResult;
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:raylex_studio/logic/enums/FileType.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
@@ -69,15 +70,16 @@ class RecordController {
   }
 
   Future<File> moveFile(File sourceFile, String newPath) async {
+    await File(newPath).create(recursive: true);
     final newFile = await sourceFile.copy(newPath);
     await sourceFile.delete();
     return newFile;
   }
   
-  Future<File> saveFileToDoc(ModelTrack track) async {
+  Future<File> saveFileToDoc(ModelTrack track, String recordName, DateTime now) async {
     var basNameWithExtension = track.path;
     var source = File((await track.record!.url(track.path))!);
-    var dest = (await getApplicationDocumentsDirectory()).path + "/" + basNameWithExtension;
+    var dest = (await getApplicationDocumentsDirectory()).path + "/" + DateFormat("ddMMYYYY-hhmmss").format(now) + "/" + basNameWithExtension;
     return await moveFile(source,dest);
   }
 
@@ -89,21 +91,23 @@ class RecordController {
     await Future.delayed(Duration(milliseconds: 300));
     try{
       for(var track in record.tracks!){
-        track.path = (await saveFileToDoc(track)).path;
+        track.path = (await saveFileToDoc(track, record.name, record.onCreated)).path;
       }
-      await mergeAudio(record.tracks!);
-      ModelTrack previewTrack = ModelTrack(name: "Preview", path: "${(await getApplicationDocumentsDirectory()).path}/output.aac", milis: 0);
+      File mergeFile = await mergeAudio(record.tracks!, record.onCreated);
+      ModelTrack previewTrack = ModelTrack(name: "Preview", path: mergeFile.path, milis: 0);
       await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
     }catch (e){
       print("ERROR: $e");
     }
   }
 
-  Future<void> mergeAudio(List<ModelTrack> tracks) async{
+  Future<File> mergeAudio(List<ModelTrack> tracks, DateTime now) async{
     final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
     List<String> fileNames = tracks.map((e) => e.path).toList();
     String fileFilters = fileNames.map((e) => "-i $e").toList().join(" ");
-    _flutterFFmpeg.execute("-y $fileFilters -filter_complex amix=inputs=${fileNames.length} ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
+    await _flutterFFmpeg.execute("-y $fileFilters -filter_complex amix=inputs=${fileNames.length} ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
+    var dest = (await getApplicationDocumentsDirectory()).path + "/" + DateFormat("ddMMYYYY-hhmmss").format(now) + "/" + "output.aac";
+    return await moveFile(File("${(await getApplicationDocumentsDirectory()).path}/output.aac"), dest);
   }
 
   Future<void> deleteRecordMedia(ModelRecord? record) async{
@@ -111,6 +115,8 @@ class RecordController {
     File(record.previewTrack!.path).exists().then((exist) {
       if(exist){
         File(record.previewTrack!.path).delete();
+        // var parentDirPath = record.previewTrack!.path.split('/')..removeLast();
+        // var parentDir = Directory(parentDirPath.toString()).delete(recursive: true);
       }
     });
     if(record.tracks == null) return;
