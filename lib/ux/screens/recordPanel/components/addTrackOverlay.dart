@@ -10,25 +10,58 @@ abstract class AddTrackOverlay{
       builder: (context) => AnimatedBuilder(
         animation: animation,
         builder:(context, child) =>  Positioned(
-          width: 100,
+          width: 225,
           child: CompositedTransformFollower(
             link: _layerLink,
-            offset: Offset(MediaQuery.of(context).size.width - 100 - 8, (offset.dy - MediaQuery.of(context).size.height)*animation.value.clamp(0, 1)),
+            offset: Offset(MediaQuery.of(context).size.width - 225 - 8, (offset.dy - MediaQuery.of(context).size.height)*animation.value.clamp(0, 1)),
             child: Opacity(
               opacity: (animation.value*animation.value).clamp(0, 1),
               child: Material(
-                elevation: 4.0,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    ListTile(
-                      title: Text('Syria'),
-                    ),
-                    ListTile(
-                      title: Text('Lebanon'),
-                    )
-                  ],
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.06),
+                        blurRadius: 10
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(18)
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 26),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        "Import",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        indent: 8,
+                        endIndent: 8,
+                        thickness: 1,
+                        height: 1,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Empty",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
