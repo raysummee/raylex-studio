@@ -30,6 +30,12 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
     animationPlayer.reverse();
   }
   @override
+  void dispose() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    super.dispose();
+  }
+  @override
   void initState() {
     animationPlayer = AnimationController(
       vsync: this,
