@@ -70,6 +70,7 @@ class RecordController {
 
   Future<File> moveFile(File sourceFile, String newPath) async {
     final newFile = await sourceFile.copy(newPath);
+    await sourceFile.delete();
     return newFile;
   }
   

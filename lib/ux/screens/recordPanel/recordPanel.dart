@@ -41,6 +41,9 @@ class _RecordPanelState extends State<RecordPanel> {
     // chewieController.dispose();
     videoPlayerController.dispose();
     record.tracks!.forEach((track) {
+      if(!didEdit){
+        RecordController().deleteTrackMedia(track, temp: true);
+      }
       track.record!.dispose();
     });
     super.dispose();
