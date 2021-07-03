@@ -3,7 +3,7 @@ import 'package:raylex_studio/logic/models/modelTrack.dart';
 
 class ModelTrackHelper{
   Future<Box<ModelTrack>> openBox() async{
-    return await Hive.openBox<ModelTrack>("tracls");
+    return await Hive.openBox<ModelTrack>("tracks");
   }
   Box<ModelTrack> box(){
     return Hive.box<ModelTrack>("tracks");
