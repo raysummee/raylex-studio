@@ -22,7 +22,7 @@ class _RecordTrackTileState extends State<RecordTrackTile> {
   Widget build(BuildContext context) {
     return ListTile(
       onLongPress: () {
-        ModelTrackHelper().deleteAt(widget.index);
+        
       },
       onTap: (){
         if(widget.track.fileType==FileType.audio){
