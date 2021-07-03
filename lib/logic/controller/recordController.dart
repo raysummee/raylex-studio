@@ -115,8 +115,8 @@ class RecordController {
     File(record.previewTrack!.path).exists().then((exist) {
       if(exist){
         File(record.previewTrack!.path).delete();
-        // var parentDirPath = record.previewTrack!.path.split('/')..removeLast();
-        // var parentDir = Directory(parentDirPath.toString()).delete(recursive: true);
+        var parentDirPath = record.previewTrack!.path.split('/')..removeLast();
+        Directory(parentDirPath.join("/")).delete(recursive: true);
       }
     });
     if(record.tracks == null) return;
