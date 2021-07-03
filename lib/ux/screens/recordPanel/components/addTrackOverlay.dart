@@ -20,6 +20,7 @@ abstract class AddTrackOverlay{
           width: 225,
           child: CompositedTransformFollower(
             link: layerLink,
+            showWhenUnlinked: false,
             offset: Offset(MediaQuery.of(context).size.width - 225 - 8, (offset.dy - MediaQuery.of(context).size.height)*animation.value.clamp(0, 1)),
             child: Opacity(
               opacity: (animation.value*animation.value).clamp(0, 1),
