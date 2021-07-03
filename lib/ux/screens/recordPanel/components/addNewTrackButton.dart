@@ -101,7 +101,20 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
                   if(!isNewTrackOvelayOpen){
                     isNewTrackOvelayOpen = true;
                     _overlayEntry?.remove();
-                    _overlayEntry = AddTrackOverlay.createOverlayEntry(context, _layerLink, animationOverlay);
+                    _overlayEntry = AddTrackOverlay.createOverlayEntry(
+                      context: context, 
+                      layerLink: _layerLink, 
+                      animation: animationOverlay,
+                      onTopTap: (){},
+                      onBottomTap: (){
+                        isNewTrackOvelayOpen = false;
+                        widget.addNewTrack();
+                        animationOverlay.reverse().then((value) { 
+                          _overlayEntry!.remove();
+                          _overlayEntry = null;
+                        });
+                      }
+                    );
                     Overlay.of(context)!.insert(_overlayEntry!);
                     animationOverlay.forward();
                   }else{
@@ -111,7 +124,7 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton> with TickerProvid
                       _overlayEntry = null;
                     });
                   }
-                },//widget.addNewTrack,
+                },
                 padding: EdgeInsets.zero,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
