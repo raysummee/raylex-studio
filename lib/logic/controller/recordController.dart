@@ -105,4 +105,20 @@ class RecordController {
     _flutterFFmpeg.execute("-y $fileFilters -filter_complex amix=inputs=${fileNames.length} ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
   }
 
+  Future<void> deleteRecordMedia(ModelRecord? record) async{
+    if(record==null||record.previewTrack==null) return;
+    File(record.previewTrack!.path).exists().then((exist) {
+      if(exist){
+        File(record.previewTrack!.path).delete();
+      }
+    });
+    if(record.tracks == null) return;
+    record.tracks!.forEach((track) {
+      File(track.path).exists().then((exist) {
+        if(exist){
+          File(track.path).delete();
+        }
+      });
+    });
+  }
 }

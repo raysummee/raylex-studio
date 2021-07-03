@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/controller/playerController.dart';
+import 'package:raylex_studio/logic/controller/recordController.dart';
 import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
 import 'package:raylex_studio/ux/components/tile/songTile.dart';
 import 'package:raylex_studio/ux/components/tile/songTileExpanded.dart';
@@ -42,7 +43,9 @@ class _ListRecordTileState extends State<ListRecordTile> {
                 setState(() {
                   expandedRecording = -1;
                 });
+                var record = ModelRecordHelper().getAt(index);
                 ModelRecordHelper().deleteAt(index);
+                RecordController().deleteRecordMedia(record);
               },
               recordLabel: ModelRecordHelper().getAt(index)!.name,
               dateTime: ModelRecordHelper().getAt(index)!.onUpdated,
