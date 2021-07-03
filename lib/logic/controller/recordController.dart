@@ -121,4 +121,18 @@ class RecordController {
       });
     });
   }
+
+  Future<void> deleteTrackMedia(ModelTrack? track, {bool temp:false}) async{
+    if(track==null) return;
+    if(temp){
+      var sound = FlutterSoundRecorder();
+      sound.openAudioSession();
+      track.path = (await sound.getRecordURL(path: track.path))!;
+    }
+    File(track.path).exists().then((exist) {
+      if(exist){
+        File(track.path).delete();
+      }
+    });
+  }
 }

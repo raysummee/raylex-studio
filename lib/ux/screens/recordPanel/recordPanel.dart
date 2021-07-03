@@ -110,6 +110,13 @@ class _RecordPanelState extends State<RecordPanel> {
                     child: RecordTrackTile(
                       track: record.tracks![index],
                       index: index,
+                      onDelete: (){
+                        ModelTrack track = record.tracks![index];
+                        setState(() {
+                          record.tracks!.removeAt(index);
+                        });
+                        RecordController().deleteTrackMedia(track, temp: true);
+                      },
                     ),
                   );
                 }

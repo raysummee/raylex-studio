@@ -7,10 +7,12 @@ import 'package:raylex_studio/logic/models/modelTrack.dart';
 class RecordTrackTile extends StatefulWidget {
   final ModelTrack track;
   final int index;
+  final VoidCallback onDelete;
   const RecordTrackTile({ 
     Key? key, 
     required this.track,
-    required this.index
+    required this.index,
+    required this.onDelete
   }) : super(key: key);
 
   @override
@@ -21,9 +23,7 @@ class _RecordTrackTileState extends State<RecordTrackTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onLongPress: () {
-        
-      },
+      onLongPress: widget.onDelete,
       onTap: (){
         if(widget.track.fileType==FileType.audio){
           setState(() {
