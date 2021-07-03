@@ -45,7 +45,7 @@ class LibRecord{
     print("playing start $path");
     if(
       !_mPlayerIsInited ||
-      !_mplaybackReady ||
+      // !_mplaybackReady ||
       !_mRecorder!.isStopped ||
       !_mPlayer!.isStopped
     ){
