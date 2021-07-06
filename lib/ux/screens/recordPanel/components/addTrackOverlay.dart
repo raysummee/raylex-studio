@@ -9,10 +9,6 @@ abstract class AddTrackOverlay{
     required VoidCallback onTopTap,
     required VoidCallback onBottomTap
   }) {
-    RenderBox renderBox = context.findRenderObject() as RenderBox;
-    var size = renderBox.size;
-    var offset = renderBox.localToGlobal(Offset(0, -15));
-    print(offset.dy+size.height);
     return OverlayEntry(
       builder: (context) => AnimatedBuilder(
         animation: animation,
@@ -20,8 +16,10 @@ abstract class AddTrackOverlay{
           width: 225,
           child: CompositedTransformFollower(
             link: layerLink,
+            followerAnchor: Alignment.bottomRight,
+            targetAnchor: Alignment.topRight,
             showWhenUnlinked: false,
-            offset: Offset(MediaQuery.of(context).size.width - 225 - 8, (offset.dy - MediaQuery.of(context).size.height)*animation.value.clamp(0, 1)),
+            offset: Offset(20, -23*animation.value.clamp(0, 1)),
             child: Opacity(
               opacity: (animation.value*animation.value).clamp(0, 1),
               child: Material(
