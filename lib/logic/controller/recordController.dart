@@ -87,7 +87,7 @@ class RecordController {
     await SavingDialog.show(saveRecording(record));
   }
 
-  Future<void> saveRecording(ModelRecord record) async{
+  Future<bool> saveRecording(ModelRecord record) async{
     await Future.delayed(Duration(milliseconds: 300));
     try{
       for(var track in record.tracks!){
@@ -98,7 +98,9 @@ class RecordController {
       await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
     }catch (e){
       print("ERROR: $e");
+      return false;
     }
+    return true;
   }
 
   Future<File> mergeAudio(List<ModelTrack> tracks, DateTime now) async{

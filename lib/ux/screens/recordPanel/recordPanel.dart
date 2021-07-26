@@ -97,9 +97,11 @@ class _RecordPanelState extends State<RecordPanel> {
           children: [ 
             RecordPanelAppbar(
               onEnd: () async{
-                if(didEdit)
-                await RecordController().saveRecordingPrompt(record);
-                Navigator.of(context).pop();
+                if(didEdit){
+                  await RecordController().saveRecordingPrompt(record);
+                }else{
+                  Navigator.of(context).pop();
+                }
               },
               title: record.name,
             ), 

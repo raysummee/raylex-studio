@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:raylex_studio/logic/context/appContext.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SavingDialog extends StatefulWidget {
   const SavingDialog({ Key? key, this.onShowFunc }) : super(key: key);
   static GlobalKey<State>? _keyLoader;
-  final Future<void>? onShowFunc; 
+  final Future<bool>? onShowFunc; 
 
   static void hide(){
     if(_keyLoader!=null
@@ -17,7 +18,7 @@ class SavingDialog extends StatefulWidget {
     _keyLoader = null;
   }
 
-  static Future<void> show(Future onShowFunc) async{
+  static Future<void> show(Future<bool> onShowFunc) async{
     hide();
     _keyLoader = new GlobalKey<State>();
     await showDialog(
@@ -36,16 +37,27 @@ class _SavingDialogState extends State<SavingDialog> {
   @override
   void initState() {
     if(widget.onShowFunc!=null){
-      widget.onShowFunc!.then((value) {
-        if(mounted){
-          setState(() {
-            saved = true;
-          });
-          Future.delayed(Duration(seconds: 3),(){
+      try{
+        widget.onShowFunc!.then((status) {
+          if(status){
+            if(mounted){
+              setState(() {
+                saved = true;
+              });
+              Future.delayed(Duration(seconds: 3),(){
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              });
+            }
+          }else{
             Navigator.of(context).pop();
-          });
-        }
-      });
+            Fluttertoast.showToast(msg: "Could not able to save");
+          }
+        });
+      }catch(e){
+        print(e);
+        Navigator.of(context).pop(false);
+      }
     }
     super.initState();
   }

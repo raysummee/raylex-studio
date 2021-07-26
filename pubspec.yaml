@@ -36,6 +36,7 @@ dependencies:
   animated_size_and_fade: ^2.0.0
   lottie: ^1.0.1
   file_picker: ^3.0.3
+  fluttertoast: ^8.0.7
 
 dev_dependencies:
   flutter_test:
