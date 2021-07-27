@@ -77,14 +77,20 @@ class RecordController {
   }
   
   Future<File> saveFileToDoc(ModelTrack track, String recordName, DateTime now) async {
-    var basNameWithExtension = track.path;
-    var source = File((await track.record!.url(track.path))!);
+    var basNameWithExtension = track.path.split("/").last;
+    var source = File((await track.record!.url(basNameWithExtension))!);
+    if(track.path.split("/").length>2){
+      source = File(track.path);
+    }
     var dest = (await getApplicationDocumentsDirectory()).path + "/" + DateFormat("ddMMYYYY-hhmmss").format(now) + "/" + basNameWithExtension;
     return await moveFile(source,dest);
   }
 
-  Future<void> saveRecordingPrompt(ModelRecord record) async{
-    await SavingDialog.show(saveRecording(record));
+  Future<void> saveRecordingPrompt(ModelRecord record, {bool update:false}) async{
+    if(update){
+      return await SavingDialog.show(updateRecording(record));
+    }
+    return await SavingDialog.show(saveRecording(record));
   }
 
   String generateRecordNameUsingCount(){
@@ -111,6 +117,25 @@ class RecordController {
       ModelTrack previewTrack = ModelTrack(name: "Preview", path: mergeFile.path, milis: 0);
       
       await ModelRecordHelper().add(name: generateRecordNameUsingCount(), previewTrack: previewTrack, tracks: record.tracks);
+    }catch (e){
+      print("ERROR: $e");
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> updateRecording(ModelRecord record) async{
+    await Future.delayed(Duration(milliseconds: 300));
+    try{
+      for(var track in record.tracks!){
+        track.path = (await saveFileToDoc(track, record.name, record.onCreated)).path;
+      }
+      File mergeFile = await mergeAudio(record.tracks!, record.onCreated);
+      ModelTrack previewTrack = ModelTrack(name: "Preview", path: mergeFile.path, milis: 0);
+      record.previewTrack = previewTrack;
+      record.onUpdated = DateTime.now();
+      
+      await ModelRecordHelper().update(record);
     }catch (e){
       print("ERROR: $e");
       return false;

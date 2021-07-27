@@ -87,7 +87,7 @@ class _RecordPanelState extends State<RecordPanel> {
     return WillPopScope(
       onWillPop: !didEdit&&Platform.isIOS? null :() async {
         if(didEdit){
-          await RecordController().saveRecordingPrompt(record);
+          await RecordController().saveRecordingPrompt(record, update: widget.record!=null);
           return true;
         }
         return true;
@@ -98,7 +98,7 @@ class _RecordPanelState extends State<RecordPanel> {
             RecordPanelAppbar(
               onEnd: () async{
                 if(didEdit){
-                  await RecordController().saveRecordingPrompt(record);
+                  await RecordController().saveRecordingPrompt(record, update: widget.record!=null);
                 }else{
                   Navigator.of(context).pop();
                 }
