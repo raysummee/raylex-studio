@@ -23,7 +23,10 @@ class AddedSongs extends StatelessWidget {
                   itemCount: ModelRecordHelper().length(),
                   itemBuilder: (context, index) => SongTile(
                     onTap: (){
-                      Navigator.of(context).pushNamed("/recordPanel");
+                      Navigator.of(context).pushNamed(
+                        "/recordPanel",
+                        arguments: ModelRecordHelper().getAt(index)!
+                      );
                     },
                     recordLabel: ModelRecordHelper().getAt(index)!.name, 
                     dateTime: ModelRecordHelper().getAt(index)!.onUpdated
