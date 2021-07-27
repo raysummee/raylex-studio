@@ -10,6 +10,7 @@ import 'package:raylex_studio/logic/lib/libRecord.dart';
 import 'package:raylex_studio/logic/models/modelRecord.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
 import 'package:raylex_studio/ux/screens/recordPanel/components/addNewTrackButton.dart';
+import 'package:raylex_studio/ux/screens/recordPanel/components/cancelRecordDialog.dart';
 import 'package:raylex_studio/ux/screens/recordPanel/components/recordPanelAppbar.dart';
 import 'package:raylex_studio/ux/screens/recordPanel/components/recordTrackTile.dart';
 import 'package:video_player/video_player.dart';
@@ -87,8 +88,13 @@ class _RecordPanelState extends State<RecordPanel> {
     return WillPopScope(
       onWillPop: !didEdit&&Platform.isIOS? null :() async {
         if(didEdit){
-          await RecordController().saveRecordingPrompt(record, update: widget.record!=null);
-          return true;
+          var status = await CancelRecordDialog.show(
+            onSave: (){
+              RecordController().saveRecordingPrompt(record, update: widget.record!=null);
+            }
+          );
+          print("status: $status");
+          return status;
         }
         return true;
       },
@@ -98,7 +104,11 @@ class _RecordPanelState extends State<RecordPanel> {
             RecordPanelAppbar(
               onEnd: () async{
                 if(didEdit){
-                  await RecordController().saveRecordingPrompt(record, update: widget.record!=null);
+                  await CancelRecordDialog.show(
+                    onSave: (){
+                      RecordController().saveRecordingPrompt(record, update: widget.record!=null);
+                    }
+                  );
                 }else{
                   Navigator.of(context).pop();
                 }
