@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart' show FilePicker, FilePickerResult;
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:raylex_studio/logic/enums/FileType.dart';
@@ -56,6 +57,10 @@ class RecordController {
   bool onPlaybuttonClicked (play, ModelRecord record){
     if(record.tracks!.where((track) => track.recordType==RecordTileType.Record).length>1){
       print("one file can be recorded for now");
+      Fluttertoast.showToast(
+        msg: "Failed recording multiple files. \nPlease select single track for recording",
+        toastLength: Toast.LENGTH_LONG,
+      );
       return false;
     }
     record.tracks!.forEach((track) {
