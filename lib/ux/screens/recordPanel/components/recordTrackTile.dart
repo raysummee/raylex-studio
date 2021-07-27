@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:raylex_studio/logic/enums/FileType.dart';
 import 'package:raylex_studio/logic/enums/RecordTileType.dart';
-import 'package:raylex_studio/logic/helpers/modelTrackHelper.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
 
 class RecordTrackTile extends StatefulWidget {
@@ -39,7 +39,7 @@ class _RecordTrackTileState extends State<RecordTrackTile> {
           });
         }else{
           print("Not recordable audio");
-          //TODO should show some message as not recordable
+          Fluttertoast.showToast(msg: "The track is not recordable");
         }
       },
       contentPadding: EdgeInsets.fromLTRB(28, 16, 28, 16),
