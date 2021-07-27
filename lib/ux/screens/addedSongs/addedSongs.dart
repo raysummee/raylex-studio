@@ -18,7 +18,18 @@ class AddedSongs extends StatelessWidget {
             child: ValueListenableBuilder(
               valueListenable: ModelRecordHelper().listen(),
               builder: (context, Box<ModelRecord> box, child) {
-                return ListView.builder(
+                return ModelRecordHelper().isEmpty()? Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "No added recording found",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 112, 112, 112)
+                    ),
+                  )
+                ):
+                ListView.builder(
                   padding: EdgeInsets.only(top: 2, bottom: kBottomNavigationBarHeight),
                   itemCount: ModelRecordHelper().length(),
                   itemBuilder: (context, index) => SongTile(
