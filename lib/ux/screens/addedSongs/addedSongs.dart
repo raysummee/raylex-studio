@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
+import 'package:raylex_studio/logic/models/modelRecord.dart';
 import 'package:raylex_studio/ux/components/appbar/genericAppbar.dart';
 import 'package:raylex_studio/ux/components/tile/songTile.dart';
 
@@ -10,18 +13,23 @@ class AddedSongs extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          GenericAppbar(title: "Added Karoke"),
+          GenericAppbar(title: "Added Recordings"),
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.only(top: 2, bottom: kBottomNavigationBarHeight),
-              itemCount: 10,
-              itemBuilder: (context, index) => SongTile(
-                onTap: (){
-                  Navigator.of(context).pushNamed("/recordPanel");
-                },
-                recordLabel: "Song ${index+1}", 
-                dateTime: DateTime.now()
-              )
+            child: ValueListenableBuilder(
+              valueListenable: ModelRecordHelper().listen(),
+              builder: (context, Box<ModelRecord> box, child) {
+                return ListView.builder(
+                  padding: EdgeInsets.only(top: 2, bottom: kBottomNavigationBarHeight),
+                  itemCount: ModelRecordHelper().length(),
+                  itemBuilder: (context, index) => SongTile(
+                    onTap: (){
+                      Navigator.of(context).pushNamed("/recordPanel");
+                    },
+                    recordLabel: ModelRecordHelper().getAt(index)!.name, 
+                    dateTime: ModelRecordHelper().getAt(index)!.onUpdated
+                  )
+                );
+              }
             )
           )
         ],
