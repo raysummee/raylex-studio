@@ -87,6 +87,20 @@ class RecordController {
     await SavingDialog.show(saveRecording(record));
   }
 
+  String generateRecordNameUsingCount(){
+    int lastIndex = ModelRecordHelper().length()-1;
+    if(lastIndex<0){
+      return "New Record 1";
+    }
+    String lastRecordName = ModelRecordHelper().getAt(lastIndex)!.name;
+    int? lastRecordCount = int.tryParse(lastRecordName.replaceAll("New Record", ""));
+    if(lastRecordCount==null){
+      return "New Record 1";
+    }
+    String newRecordName = "New Record ${lastRecordCount+1}";
+    return newRecordName;
+  }
+
   Future<bool> saveRecording(ModelRecord record) async{
     await Future.delayed(Duration(milliseconds: 300));
     try{
@@ -95,7 +109,8 @@ class RecordController {
       }
       File mergeFile = await mergeAudio(record.tracks!, record.onCreated);
       ModelTrack previewTrack = ModelTrack(name: "Preview", path: mergeFile.path, milis: 0);
-      await ModelRecordHelper().add(name: "New", previewTrack: previewTrack, tracks: record.tracks);
+      
+      await ModelRecordHelper().add(name: generateRecordNameUsingCount(), previewTrack: previewTrack, tracks: record.tracks);
     }catch (e){
       print("ERROR: $e");
       return false;

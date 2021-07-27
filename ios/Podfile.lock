@@ -40,6 +40,9 @@ PODS:
   - flutter_sound_lite (8.1.4):
     - Flutter
     - tau_core (= 8.1.4)
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
   - mobile-ffmpeg-audio (4.4.LTS)
   - path_provider (0.0.1):
     - Flutter
@@ -50,6 +53,7 @@ PODS:
   - SDWebImage/Core (5.11.1)
   - SwiftyGif (5.4.0)
   - tau_core (8.1.4)
+  - Toast (4.0.0)
   - video_player (0.0.1):
     - Flutter
   - wakelock (0.0.1):
@@ -60,6 +64,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_ffmpeg/audio-lts (from `.symlinks/plugins/flutter_ffmpeg/ios`)
   - flutter_sound_lite (from `.symlinks/plugins/flutter_sound_lite/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
@@ -73,6 +78,7 @@ SPEC REPOS:
     - SDWebImage
     - SwiftyGif
     - tau_core
+    - Toast
 
 EXTERNAL SOURCES:
   file_picker:
@@ -83,6 +89,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_ffmpeg/ios"
   flutter_sound_lite:
     :path: ".symlinks/plugins/flutter_sound_lite/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
@@ -99,15 +107,17 @@ SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_ffmpeg: bc8496ea20331e486cd29a03a3c6ff10d32db565
   flutter_sound_lite: b3e3bf1c123f284149445b753a41b4a70f8d58e9
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   mobile-ffmpeg-audio: 1e0a053f8a6de57114e50ff48b3a85ff1c60f902
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   tau_core: 8e07b9ce46e5e1b1956fb4d5e9ac713206e5c315
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: 253ed5f772c9ddbd100ba0f72ab986c8aaddbabe
+PODFILE CHECKSUM: 5a532595bdff6d7cad6e7074b98f5c6ec7b55c15
 
 COCOAPODS: 1.10.1
