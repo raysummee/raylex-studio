@@ -23,7 +23,7 @@
     <a href="https://github.com/raysummee/raylex-studio"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/raysummee/raylex-studio">Try the app</a>
+    <a href="https://github.com/raysummee/raylex-studio/releases">Try the app</a>
     ·
     <a href="https://github.com/raysummee/raylex/issues">Report Bug</a>
     ·
