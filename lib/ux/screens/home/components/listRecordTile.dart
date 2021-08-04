@@ -16,6 +16,11 @@ class _ListRecordTileState extends State<ListRecordTile> {
   PlayerController controller = PlayerController();
   int expandedRecording = -1;
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: ModelRecordHelper().listen(),
@@ -38,12 +43,13 @@ class _ListRecordTileState extends State<ListRecordTile> {
               CrossFadeState.showSecond,
             duration: Duration(milliseconds: 300),
             firstChild: SongTileExpanded(
+              active: index==expandedRecording,
               playerController: controller,
               onDelete: (){
                 setState(() {
                   expandedRecording = -1;
                 });
-                controller.dispose();
+                controller.dispose(soft: true);
                 var record = ModelRecordHelper().getAt(index);
                 ModelRecordHelper().deleteAt(index);
                 RecordController().deleteRecordMedia(record);
@@ -55,7 +61,10 @@ class _ListRecordTileState extends State<ListRecordTile> {
             secondChild:  SongTile(
               recordLabel: ModelRecordHelper().getAt(index)!.name,
               dateTime: ModelRecordHelper().getAt(index)!.onUpdated,
-              onTap: (){
+              onTap: () async{
+                if(controller.audioPlayer.isPlaying){
+                  await controller.stop();
+                }
                  setState(() {
                   expandedRecording = index;
                 });

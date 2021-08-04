@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:intl/intl.dart';
 import 'package:raylex_studio/logic/controller/playerController.dart';
 import 'package:raylex_studio/logic/models/modelTrack.dart';
@@ -12,12 +13,14 @@ class SongTileExpanded extends StatefulWidget {
   final ModelTrack track;
   final VoidCallback onDelete;
   final PlayerController playerController;
+  final bool active;
   const SongTileExpanded({ 
     required this.recordLabel, 
     required this.dateTime, 
     required this.track,
     required this.onDelete,
     required this.playerController,
+    required this.active,
     Key? key 
   }) : super(key: key);
 
@@ -38,13 +41,27 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
       lowerBound: 0,
       upperBound: 1
     );
-    changePlayerProps();
     super.initState();
   }
 
   void changePlayerProps(){
+    widget.playerController.playbackStateController.stream.listen((state) {
+      if(!widget.active) return;
+      if(!mounted) return;
+      if(state==PlayerState.isPlaying&&animationController.value!=1){
+        animationController.forward();
+      }else if((state==PlayerState.isPaused||state==PlayerState.isStopped)&&animationController.value!=0){
+        animationController.reverse();
+        if(state==PlayerState.isStopped){
+          setState(() {
+            seekCurrent=seekLower;
+          });
+        }
+      }
+    });
     widget.playerController.onChange(
       (duration) {
+        if(!widget.active) return;
         if(!mounted) return;
         print("duration came");
         if(seekHigher!=duration.inMilliseconds){
@@ -54,6 +71,7 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
         }
       }, 
       (duration) {
+        if(!widget.active) return;
         if(!mounted) return;
         setState(() {
           seekCurrent = duration.inMilliseconds.toDouble();
@@ -63,8 +81,16 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
   }
 
   @override
+  void didChangeDependencies() {
+    if(seekHigher==0)
+    changePlayerProps();
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
-    widget.playerController.dispose();
+    widget.playerController.dispose(soft: true);
+    animationController.dispose();
     super.dispose();
   }
   @override
@@ -134,7 +160,6 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                   CupertinoButton(
                     onPressed: () async{
                       if(animationController.value==0){
-                        animationController.forward();
                         print(seekCurrent!=0&&seekCurrent<seekHigher);
                         if(seekCurrent!=0&&seekCurrent<seekHigher){
                           widget.playerController.resume();
@@ -142,7 +167,6 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
                           widget.playerController.play(widget.track.path, ()=>animationController.reverse());
                         }
                       }else{
-                        animationController.reverse();
                         widget.playerController.pause();
                       }
                     }, 
