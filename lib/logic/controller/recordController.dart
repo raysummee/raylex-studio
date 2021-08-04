@@ -32,8 +32,11 @@ class RecordController {
     recorder.closeAudioSession();
     await File(result.files.single.path!).copy(newPath!);
     await File(result.files.single.path!).delete();
+    var tracknameList = result.files.single.name.split("/").reversed.elementAt(0).split(".");
+    tracknameList.removeLast();
+    var trackName = tracknameList.join(".");
     ModelTrack modelTrack = ModelTrack(
-      name: result.files.single.name.split(".").reversed.elementAt(1), 
+      name: trackName, 
       path: result.files.single.name, 
       milis: 0,
       fileType: fileType,
