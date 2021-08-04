@@ -43,6 +43,7 @@ class _ListRecordTileState extends State<ListRecordTile> {
                 setState(() {
                   expandedRecording = -1;
                 });
+                controller.dispose();
                 var record = ModelRecordHelper().getAt(index);
                 ModelRecordHelper().deleteAt(index);
                 RecordController().deleteRecordMedia(record);

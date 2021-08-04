@@ -37,6 +37,9 @@ class PlayerController{
   }
 
   void dispose() async{
+    if(audioPlayer.isPlaying){
+      await audioPlayer.stopPlayer();
+    }
     await onPlayerStateChange?.cancel();
   }
 

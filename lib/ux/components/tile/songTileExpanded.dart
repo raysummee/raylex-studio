@@ -45,6 +45,7 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
   void changePlayerProps(){
     widget.playerController.onChange(
       (duration) {
+        if(!mounted) return;
         print("duration came");
         if(seekHigher!=duration.inMilliseconds){
           setState(() {
@@ -53,6 +54,7 @@ class _SongTileExpandedState extends State<SongTileExpanded> with TickerProvider
         }
       }, 
       (duration) {
+        if(!mounted) return;
         setState(() {
           seekCurrent = duration.inMilliseconds.toDouble();
         });
