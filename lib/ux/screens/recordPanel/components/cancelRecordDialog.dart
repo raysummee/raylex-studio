@@ -19,10 +19,11 @@ class CancelRecordDialog extends StatefulWidget {
   static Future<bool> show({required VoidCallback onSave}) async{
     hide();
     _keyLoader = new GlobalKey<State>();
-    return await showDialog(
+    var r = await showDialog(
       context: navigatorState.currentContext!,
       builder: (context) => CancelRecordDialog(onSave: onSave)
     );
+    return r??false;
   }
 
 
