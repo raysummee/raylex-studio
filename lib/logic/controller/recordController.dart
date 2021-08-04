@@ -150,7 +150,7 @@ class RecordController {
 
   Future<File> mergeAudio(List<ModelTrack> tracks, DateTime now) async{
     final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
-    List<String> fileNames = tracks.map((e) => e.path).toList();
+    List<String> fileNames = tracks.map((e) => '"' + e.path + '"').toList();
     String fileFilters = fileNames.map((e) => "-i $e").toList().join(" ");
     await _flutterFFmpeg.execute("-y $fileFilters -filter_complex amix=inputs=${fileNames.length},volume=${fileNames.length} ${(await getApplicationDocumentsDirectory()).path}/output.aac").then((rc) => print("$fileFilters -filter complex amerge output.mp3 process exited with rc $rc"));
     var dest = (await getApplicationDocumentsDirectory()).path + "/" + DateFormat("ddMMyyyy-hhmmss").format(now) + "/" + "output.aac";
