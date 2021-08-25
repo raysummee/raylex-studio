@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/raylex-studio">
+  <a href="https://github.com/raysummee/raylex-studio">
     <img src="android/app/src/main/ic_launcher-playstore.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -25,7 +25,7 @@
     <br />
     <a href="https://github.com/raysummee/raylex-studio/releases">Try the app</a>
     ·
-    <a href="https://github.com/raysummee/raylex/issues">Report Bug</a>
+    <a href="https://github.com/raysummee/raylex-studio/issues">Report Bug</a>
     ·
     <a href="https://github.com/raysummee/raylex-studio/issues">Request Feature</a>
   </p>
@@ -113,7 +113,7 @@ You can listen to existing recording on the home page and also edit, record the 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/raysummee/raylex-studio/issues) for a list of proposed features (and known issues).
 
 
 
