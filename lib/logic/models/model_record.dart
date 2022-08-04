@@ -11,7 +11,7 @@ class ModelRecord {
       required this.exported,
       required this.onCreated,
       required this.onUpdated});
-      
+
   @HiveField(0)
   String name;
   @HiveField(1)

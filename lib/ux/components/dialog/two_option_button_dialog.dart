@@ -10,7 +10,7 @@ class TwoOptionButtonDialog extends StatelessWidget {
       required this.bottomLabel,
       required this.bottomFunc})
       : super(key: key);
-      
+
   final String topLabel;
   final String bottomLabel;
   final VoidCallback topFunc;

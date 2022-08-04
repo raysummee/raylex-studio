@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:raylex_studio/logic/controller/record_controller.dart';
 import 'package:raylex_studio/logic/models/model_record.dart';
 import 'package:raylex_studio/logic/models/model_track.dart';
-import 'package:raylex_studio/ux/screens/recordPanel/components/add_track_overlay.dart' as add_track_overlay;
+import 'package:raylex_studio/ux/screens/recordPanel/components/add_track_overlay.dart'
+    as add_track_overlay;
 
 class AddNewTrackButton extends StatefulWidget {
   const AddNewTrackButton(
@@ -32,7 +33,7 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton>
   final LayerLink _layerLink = LayerLink();
 
   void onPlay() {
-    if (mounted) { 
+    if (mounted) {
       animationPlayer.forward();
     }
   }
@@ -53,11 +54,9 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton>
   @override
   void initState() {
     animationPlayer = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 300));
+        vsync: this, duration: const Duration(milliseconds: 300));
     animationOverlay = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 150));
+        vsync: this, duration: const Duration(milliseconds: 150));
     widget.modelRecord.onPlayStopDispatch = onStop;
     widget.modelRecord.onPlayingDispatch = onPlay;
     super.initState();
@@ -89,7 +88,7 @@ class _AddNewTrackButtonState extends State<AddNewTrackButton>
               ),
               onPressed: () {
                 if (animationPlayer.value == 0) {
-                  if (widget.onPlayClick(true)) { 
+                  if (widget.onPlayClick(true)) {
                     animationPlayer.forward();
                   }
                 } else if (animationPlayer.value == 1) {

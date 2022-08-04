@@ -33,7 +33,7 @@ class ModelRecordHelper {
       {required String name,
       List<ModelTrack>? tracks,
       required ModelTrack previewTrack,
-      bool exported= false}) async {
+      bool exported = false}) async {
     final ModelRecord record = ModelRecord(
         name: name,
         previewTrack: previewTrack,

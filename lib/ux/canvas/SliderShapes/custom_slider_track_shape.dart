@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomSliderTrackShape extends RoundedRectSliderTrackShape {
-  CustomSliderTrackShape({this.dense= false});
+  CustomSliderTrackShape({this.dense = false});
   final bool dense;
   @override
   Rect getPreferredRect({

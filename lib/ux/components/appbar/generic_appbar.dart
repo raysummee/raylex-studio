@@ -21,10 +21,14 @@ class GenericAppbar extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
           child: Row(
             children: [
-              if (Navigator.of(context).canPop()) const BackButton() else const SizedBox(),
+              if (Navigator.of(context).canPop())
+                const BackButton()
+              else
+                const SizedBox(),
               Text(
                 title,
-                style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
               ),
             ],
           ),

@@ -25,7 +25,7 @@ class SongTileExpanded extends StatefulWidget {
   final bool active;
 
   @override
-  State<SongTileExpanded>  createState() => _SongTileExpandedState();
+  State<SongTileExpanded> createState() => _SongTileExpandedState();
 }
 
 class _SongTileExpandedState extends State<SongTileExpanded>
@@ -37,8 +37,7 @@ class _SongTileExpandedState extends State<SongTileExpanded>
   @override
   void initState() {
     animationController = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 300));
+        vsync: this, duration: const Duration(milliseconds: 300));
     super.initState();
   }
 
@@ -125,7 +124,8 @@ class _SongTileExpandedState extends State<SongTileExpanded>
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 widget.recordLabel,
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
               ),
             ),
             const SizedBox(
@@ -147,8 +147,10 @@ class _SongTileExpandedState extends State<SongTileExpanded>
                 data: SliderThemeData(
                     activeTrackColor: const Color.fromARGB(255, 112, 112, 112),
                     thumbColor: Colors.white,
-                    inactiveTrackColor: const Color.fromARGB(255, 237, 237, 237),
-                    thumbShape: const CustomSliderThumbShape(disabledThumbRadius: 10),
+                    inactiveTrackColor:
+                        const Color.fromARGB(255, 237, 237, 237),
+                    thumbShape:
+                        const CustomSliderThumbShape(disabledThumbRadius: 10),
                     trackShape: CustomSliderTrackShape()),
                 child: Slider(
                     value: seekCurrent,
@@ -191,7 +193,8 @@ class _SongTileExpandedState extends State<SongTileExpanded>
                       )),
                   CupertinoButton(
                       onPressed: widget.onDelete,
-                      child: const Icon(Icons.delete, size: 40, color: Colors.black)),
+                      child: const Icon(Icons.delete,
+                          size: 40, color: Colors.black)),
                 ],
               ),
             )

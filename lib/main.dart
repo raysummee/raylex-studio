@@ -21,7 +21,10 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Raylex Studio',
         navigatorKey: navigatorState,
-        theme: ThemeData(primaryColor: Colors.white, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.red)),
+        theme: ThemeData(
+            primaryColor: Colors.white,
+            colorScheme:
+                ColorScheme.fromSwatch().copyWith(secondary: Colors.red)),
         initialRoute: '/',
         onGenerateRoute: route_generator.generateRoute);
   }

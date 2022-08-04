@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomSliderThumbShape extends SliderComponentShape {
   const CustomSliderThumbShape({
     this.enabledThumbRadius = 10.0,
-    this.showThumb= true,
+    this.showThumb = true,
     required this.disabledThumbRadius,
   });
 

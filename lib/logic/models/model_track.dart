@@ -10,9 +10,9 @@ class ModelTrack {
       {required this.name,
       required this.path,
       required this.milis,
-      this.fileType= FileType.audio,
+      this.fileType = FileType.audio,
       this.record,
-      this.recordType= RecordTileType.none});
+      this.recordType = RecordTileType.none});
 
   @HiveField(0)
   String name;
