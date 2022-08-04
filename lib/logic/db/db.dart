@@ -1,27 +1,25 @@
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:raylex_studio/logic/enums/FileType.dart';
-import 'package:raylex_studio/logic/helpers/modelRecordHelper.dart';
-import 'package:raylex_studio/logic/helpers/modelTrackHelper.dart';
-import 'package:raylex_studio/logic/models/modelRecord.dart';
-import 'package:raylex_studio/logic/models/modelTrack.dart';
+import 'package:raylex_studio/logic/enums/file_type.dart';
+import 'package:raylex_studio/logic/helpers/model_record_helper.dart';
+import 'package:raylex_studio/logic/helpers/model_track_helper.dart';
+import 'package:raylex_studio/logic/models/model_record.dart';
+import 'package:raylex_studio/logic/models/model_track.dart';
 
-class Db{
-  Future<void> init() async{
+class Db {
+  Future<void> init() async {
     await Hive.initFlutter();
     registerAdapters();
     await openAllBox();
   }
 
-  Future<void> openAllBox() async{
+  Future<void> openAllBox() async {
     await ModelRecordHelper().openBox();
     await ModelTrackHelper().openBox();
   }
 
-  void registerAdapters(){
+  void registerAdapters() {
     Hive.registerAdapter(ModelTrackAdapter());
     Hive.registerAdapter(ModelRecordAdapter());
     Hive.registerAdapter(FileTypeAdapter());
   }
-
 }
